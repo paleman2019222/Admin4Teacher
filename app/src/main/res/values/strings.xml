@@ -4,4 +4,12 @@
     <string name="hint_contraseña">Contraseña</string>
     <string name="txt_entrar">Entrar</string>
     <string name="txt_login">Sing in</string>
+
+    <string name="busqueda">ingrese el texto</string>
+    <string name="texto">Lista tarjetas</string>
+    <string name="curso_mate">Matematica</string>
+    <string name="Grado5">5to. Diversificado</string>
+    <string name="Estudiantes">20</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

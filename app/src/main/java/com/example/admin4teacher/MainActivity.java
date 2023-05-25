@@ -2,6 +2,7 @@ package com.example.admin4teacher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                iniciarSesion();
+                //iniciarSesion();
+                Intent i = new Intent(getApplicationContext(), Home.class);
+                startActivity(i);
             }
         });
     }
@@ -59,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onResponse(JSONObject response) {
-        User usuario = new User();
+        //User usuario = new User();
         Toast.makeText(getApplicationContext(), "Se ha encontrado el usuario " + userTxt.getText().toString(), Toast.LENGTH_SHORT).show();
 
         JSONArray jsonArray = response.optJSONArray("datos");
         JSONObject jsonObject= null;
 
-        try {
+        /*try {
             jsonObject = jsonArray.getJSONObject(0);
             usuario.setUser(jsonObject.optString("user"));
             usuario.setName(jsonObject.optString("name"));
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             usuario.setPassword(jsonObject.optString("pwd"));
         } catch (JSONException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         
 
