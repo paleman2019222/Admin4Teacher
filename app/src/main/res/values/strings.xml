@@ -10,6 +10,9 @@
     <string name="curso_mate">Matematica</string>
     <string name="Grado5">5to. Diversificado</string>
     <string name="Estudiantes">20</string>
+    <string name="todo">To do</string>
+    <string name="Home">Clases</string>
+    <string name="Perfil">Perfil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

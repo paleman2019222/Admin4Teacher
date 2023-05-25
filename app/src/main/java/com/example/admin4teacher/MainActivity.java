@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         userTxt = (TextInputEditText) findViewById(R.id.txtUser);
         passTxt=(TextInputEditText) findViewById(R.id.txtPassword);
-        label=(TextView) findViewById(R.id.textView1);
         btnLogin=(Button)  findViewById(R.id.btnLogin);
         rq = Volley.newRequestQueue(getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener(){
