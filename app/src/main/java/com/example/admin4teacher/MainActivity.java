@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin4teacher.entidades.VolleySingleton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -40,13 +41,14 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         userTxt = (TextInputEditText) findViewById(R.id.txtUser);
         passTxt=(TextInputEditText) findViewById(R.id.txtPassword);
         btnLogin=(Button)  findViewById(R.id.btnLogin);
+        label = (TextView) findViewById(R.id.textView123);
         rq = Volley.newRequestQueue(getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //iniciarSesion();
+                iniciarSesion();
                 Intent i = new Intent(getApplicationContext(), Home.class);
-                startActivity(i);
+                //startActivity(i);
             }
         });
     }
@@ -82,10 +84,20 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     }
 
     private void iniciarSesion(){
-        String url = "http://192.168.1.2/bdadmin4teacher/sesion.php?user="+userTxt.getText().toString()+
-                "&pwd="+passTxt.getText().toString();
-        jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        rq.add(jrq);
+
+        try {
+            String ip = "https://admin4teacherapplication.000webhostapp.com";
+
+
+            String url = ip+"/sesion.php?user="+userTxt.getText().toString()+
+                    "&pwd="+passTxt.getText().toString();
+            jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+            rq.add(jrq);
+
+            //VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jrq);
+        }catch (Exception error){
+            label.setText(error.toString());
+        }
 
     }
 

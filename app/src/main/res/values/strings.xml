@@ -13,6 +13,11 @@
     <string name="todo">To do</string>
     <string name="Home">Clases</string>
     <string name="Perfil">Perfil</string>
+    <string name="ip">https://www.admin4teacherapplication.com</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
