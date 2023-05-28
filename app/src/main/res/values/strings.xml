@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Admin4Teacher</string>
-    <string name="hint_name">Ingrese su nombre</string>
+    <string name="hint_name">Ingrese su usuario</string>
     <string name="hint_contraseña">Contraseña</string>
     <string name="txt_entrar">Entrar</string>
-    <string name="txt_login">Sing in</string>
+    <string name="txt_login">Login</string>
 
     <string name="busqueda">ingrese el texto</string>
     <string name="texto">Lista tarjetas</string>

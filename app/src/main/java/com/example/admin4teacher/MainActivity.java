@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         userTxt = (TextInputEditText) findViewById(R.id.txtUser);
         passTxt=(TextInputEditText) findViewById(R.id.txtPassword);
-        label=(TextView) findViewById(R.id.textView123);
+
         btnLogin=(Button)  findViewById(R.id.btnLogin);
         rq = Volley.newRequestQueue(getApplicationContext());
 
@@ -73,17 +74,28 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "No se encontró el error " + error.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Verifique los datos e intentelo nuevamente", Toast.LENGTH_SHORT).show();
         error.printStackTrace();
         Log.i("ERROR", error.toString());
-        label.setText(error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
+        User usuario = new User();
         Toast.makeText(getApplicationContext(), "Se ha encontrado el usuario " + userTxt.getText().toString(), Toast.LENGTH_SHORT).show();
 
         JSONArray jsonArray = response.optJSONArray("datos");
         JSONObject jsonObject= null;
+
+        try {
+            jsonObject = jsonArray.getJSONObject(0);
+            usuario.setUser(jsonObject.optString("user"));
+            usuario.setName(jsonObject.optString("name"));
+            usuario.setLastname(jsonObject.optString("lastname"));
+            usuario.setEmail(jsonObject.optString("email"));
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
