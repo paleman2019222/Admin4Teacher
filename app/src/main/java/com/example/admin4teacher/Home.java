@@ -42,7 +42,7 @@ public class Home extends AppCompatActivity {
             }
         });*/
 
-        loadFragment(primer_frag);
+        loadFragment(segundo_frag);
     }
 
     public void loadFragment(Fragment fragmetn){
