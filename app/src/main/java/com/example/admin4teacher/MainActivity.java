@@ -2,6 +2,7 @@ package com.example.admin4teacher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +24,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import persistencia.User;
+import persistencia.UserConsulta;
 
-public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
+
+public class MainActivity extends AppCompatActivity implements UserConsulta.LoginResultListener, UserConsulta.UserResultListener{
     RequestQueue rq;
     JsonRequest jrq;
 
@@ -55,47 +59,33 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
 
     private void iniciarSesion() {
+    Context ctx = getApplicationContext();
+        UserConsulta usc = new UserConsulta();
+        usc.setLoginResultListener(this);
+        usc.setUserResultListener(this);
+        usc.iniciarSesion(userTxt.getText().toString(), passTxt.getText().toString(), rq, ctx);
+    }
 
-        try {
-            String ip = "http://4teacher.atspace.tv";
 
-
-            String url = ip + "/sesion.php?user=" + userTxt.getText().toString() +
-                    "&pwd=" + passTxt.getText().toString();
-            jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-            rq.add(jrq);
-
-            //VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jrq);
-        } catch (Exception error) {
-            label.setText(error.toString());
-        }
-
+    @Override
+    public void onLoginSuccess(User user) {
+        Intent i = new Intent(getApplicationContext(), Home.class);
+        startActivity(i);
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "Verifique los datos e intentelo nuevamente", Toast.LENGTH_SHORT).show();
-        error.printStackTrace();
-        Log.i("ERROR", error.toString());
+    public void onLoginError(String errorMessage) {
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-        User usuario = new User();
-        Toast.makeText(getApplicationContext(), "Se ha encontrado el usuario " + userTxt.getText().toString(), Toast.LENGTH_SHORT).show();
+    public void onUserReceived(User user) {
+        Toast.makeText(getApplicationContext(), "Bienvenido: " + user.getName(), Toast.LENGTH_SHORT).show();
+    }
 
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObject= null;
 
-        try {
-            jsonObject = jsonArray.getJSONObject(0);
-            usuario.setUser(jsonObject.optString("user"));
-            usuario.setName(jsonObject.optString("name"));
-            usuario.setLastname(jsonObject.optString("lastname"));
-            usuario.setEmail(jsonObject.optString("email"));
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+    public void toRegister(View view){
+        Intent i = new Intent(getApplicationContext(), RegisterView.class);
+        startActivity(i);
     }
 }

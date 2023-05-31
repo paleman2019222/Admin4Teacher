@@ -85,6 +85,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:onClick="toRegister"
         android:text="Regístrate" />
+
+    <TextView
+        android:id="@+id/textError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#FBFBFB" />
 
 </LinearLayout>

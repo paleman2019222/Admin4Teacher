@@ -22,7 +22,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         BottomNavigationView navegation = findViewById(R.id.bottom_navegation);
-       /* navegation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navegation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.first_fragment) {
@@ -40,7 +40,7 @@ public class Home extends AppCompatActivity {
 
                 return false;
             }
-        });*/
+        });
 
         loadFragment(segundo_frag);
     }

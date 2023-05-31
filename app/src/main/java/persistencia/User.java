@@ -1,73 +1,62 @@
 package persistencia;
 
 public class User {
+    private int idUser;
+    private String name, lastname, email, phone, user, password;
 
-    int idUser;
-    String name;
-    String lastname;
-    String email;
-    String phone;
-    String picture;
-
-    public User(int id, String name, String lastname, String email, String phone, String picture){
-        idUser = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.picture = picture;
-    }
-
-    public User(){
-
-    }
-
-    public void setIdUser(int id){
-        this.idUser = id;
-    }
-
-    public int getIdUser(){
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setLastname(String lastname){
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastname(){
+    public String getLastname() {
         return lastname;
     }
 
-    public void setEmail(String email){
-        this.email = email;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public void setPhone(String phone){
-        this.phone = phone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPhone(){
+    public String getPhone() {
         return phone;
     }
 
-    public void setPicture(String picture){
-        this.picture = picture;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPicture(){
-        return picture;
+    public String getUser() {
+        return user;
     }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
