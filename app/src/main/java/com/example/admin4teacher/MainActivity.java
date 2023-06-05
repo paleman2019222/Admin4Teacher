@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserConsulta.Logi
     private Button btnLogin;
     TextView label;
 
+    UserConsulta usc = new UserConsulta();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +61,25 @@ public class MainActivity extends AppCompatActivity implements UserConsulta.Logi
 
     private void iniciarSesion() {
     Context ctx = getApplicationContext();
-        UserConsulta usc = new UserConsulta();
+
         usc.setLoginResultListener(this);
         usc.setUserResultListener(this);
         usc.iniciarSesion(userTxt.getText().toString(), passTxt.getText().toString(), rq, ctx);
     }
 
 
+
+
     @Override
     public void onLoginSuccess(User user) {
         Intent i = new Intent(getApplicationContext(), Home.class);
+
+        i.putExtra("nombre", user.getName());
+        i.putExtra("apellido", user.getLastname());
+        i.putExtra("usuario", user.getUser());
+        i.putExtra("telefono", user.getPhone());
+        i.putExtra("email", user.getEmail());
+        i.putExtra("idUser", user.getIdUser());
         startActivity(i);
     }
 
@@ -88,4 +98,6 @@ public class MainActivity extends AppCompatActivity implements UserConsulta.Logi
         Intent i = new Intent(getApplicationContext(), RegisterView.class);
         startActivity(i);
     }
+
+
 }

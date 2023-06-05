@@ -1,14 +1,14 @@
 package persistencia;
 
 public class User {
-    private int idUser;
+    private String idUser;
     private String name, lastname, email, phone, user, password;
 
-    public int getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
