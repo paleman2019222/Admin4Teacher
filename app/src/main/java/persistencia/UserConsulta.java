@@ -32,6 +32,14 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
 
     private UserUpdateListener userUpdateListener;
 
+    private UserDeleteListener userDeleteListener;
+
+
+
+    public void setUserDeleteListener(UserDeleteListener userDeleteListener) {
+        this.userDeleteListener = userDeleteListener;
+    }
+
     public void setUserUpdateListener(UserUpdateListener userUpdateListener) {
         this.userUpdateListener = userUpdateListener;
     }
@@ -60,6 +68,11 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
         void onUpdateError(String errorMessage);
     }
 
+    public interface UserDeleteListener{
+        void onDeleteSucces();
+        void onDeleteError(String errorMessage);
+    }
+
     public void setLoginResultListener(LoginResultListener loginResultListener) {
         this.loginResultListener = loginResultListener;
     }
@@ -85,41 +98,52 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
         if(userUpdateListener!=null){
             userUpdateListener.onUpdateError("No se ha podido actualizar verifique los datos");
         }
+        if(userDeleteListener!=null){
+            userDeleteListener.onDeleteError("No se ha podido eliminar la cuenta");
+        }
 
        // label.setText(error.toString());
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        //Toast.makeText(getApplicationContext(), "Iniciando sesión", Toast.LENGTH_SHORT).show();
+
         JSONArray jsonArray = response.optJSONArray("datos");
         JSONObject jsonObject= null;
         persistencia.User usuario = new User();
-        try {
-            jsonObject = jsonArray.getJSONObject(0);
-            usuario.setUser(jsonObject.optString("user"));
-            usuario.setName(jsonObject.optString("name"));
-            usuario.setLastname(jsonObject.optString("lastname"));
-            usuario.setPassword(jsonObject.optString("password"));
-            usuario.setEmail(jsonObject.optString("email"));
-            usuario.setPhone(jsonObject.optString("phone"));
-            usuario.setIdUser(jsonObject.optString("idUser"));
-            if (loginResultListener != null & userResultListener!=null) {
-                loginResultListener.onLoginSuccess(usuario);
-                userResultListener.onUserReceived(usuario);
-            }
-            if(userRegisterListener!=null){
-                userRegisterListener.onRegisterSuccess();
-
-            }
-            if(userUpdateListener!=null){
-                userUpdateListener.onUpdateSuccess();
-            }
+        if(jsonArray!=null){
 
 
-        } catch (JSONException e){
-            throw new RuntimeException(e);
+
+            try {
+                jsonObject = jsonArray.getJSONObject(0);
+                usuario.setUser(jsonObject.optString("user"));
+                usuario.setName(jsonObject.optString("name"));
+                usuario.setLastname(jsonObject.optString("lastname"));
+                usuario.setPassword(jsonObject.optString("password"));
+                usuario.setEmail(jsonObject.optString("email"));
+                usuario.setPhone(jsonObject.optString("phone"));
+                usuario.setIdUser(jsonObject.optString("idUser"));
+
+            } catch (JSONException e){
+                throw new RuntimeException(e);
+            }
         }
+        if (loginResultListener != null & userResultListener!=null) {
+            loginResultListener.onLoginSuccess(usuario);
+            userResultListener.onUserReceived(usuario);
+        }
+        if(userRegisterListener!=null){
+            userRegisterListener.onRegisterSuccess();
+
+        }
+        if(userUpdateListener!=null){
+            userUpdateListener.onUpdateSuccess();
+        }
+        if(userDeleteListener!=null){
+            userDeleteListener.onDeleteSucces();
+        }
+
     }
 
 
@@ -167,6 +191,62 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
 
         }
 
+    }
+
+    public void eliminarUsuario(RequestQueue rq, String idUser){
+        String ip = "http://4teacher.atspace.tv";
+        String url = ip+"/deleteUser.php?iduser="+idUser;
+
+        try {
+            JsonRequest jrq;
+            jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+            rq.add(jrq);
+        }catch (Exception error){
+
+        }
+
+    }
+
+
+
+    public void webServiceEliminar(Context context, RequestQueue rq, String idUser) {
+
+
+        String ip="http://4teacher.atspace.tv";
+
+        String url=ip+"/deleteUser.php?idUser="+idUser;
+
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+
+                if (response.trim().equalsIgnoreCase("elimina")){
+
+                    Toast.makeText(context,"Se ha Eliminado con exito",Toast.LENGTH_SHORT).show();
+                }else{
+                    if (response.trim().equalsIgnoreCase("noExiste")){
+
+                        Log.i("RESPUESTA: ",""+response);
+                    }else{
+
+                        Log.i("RESPUESTA: ",""+response);
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        rq.add(stringRequest);
+        //VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
     }
 
 

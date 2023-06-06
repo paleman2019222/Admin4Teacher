@@ -1,5 +1,6 @@
 package com.example.admin4teacher;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -24,7 +25,7 @@ import persistencia.UserConsulta;
  * Use the {@link third_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class third_fragment extends Fragment implements UserConsulta.UserUpdateListener {
+public class third_fragment extends Fragment implements UserConsulta.UserUpdateListener, UserConsulta.UserDeleteListener {
 
     private EditText editTextName, editTextLastName, editTextPhone, editTextEmail;
     RequestQueue rq;
@@ -36,7 +37,7 @@ public class third_fragment extends Fragment implements UserConsulta.UserUpdateL
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    UserConsulta usc = new UserConsulta();
     public third_fragment() {
         // Required empty public constructor
     }
@@ -135,20 +136,75 @@ TextView labelNombre, labelApellido, labelUsuario, labelTelefono, labelEmail;
             }
         });
 
+        view.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                eliminarU(idUser);
+            }
+        });
+
         return view;
     }
 
     public void editarU(RequestQueue rq, String name, String lastname, String email, String phone, String user, String iduser){
-        UserConsulta usc = new UserConsulta();
+
 
         usc.setUserUpdateListener(this);
         usc.editarUsuario(rq, name, lastname, email, phone, user, iduser);
     }
 
 
+    public void eliminarU(String id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Confirmar eliminación"+id);
+        builder.setMessage("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.");
+        usc.setUserDeleteListener(this);
+        RequestQueue rq1 = Volley.newRequestQueue(requireContext());
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Aquí puedes agregar la lógica para eliminar la cuenta
+                // ...
+                Context ctx = getContext();
+                usc.webServiceEliminar(ctx, rq1, id);
+                Intent i = new Intent(getContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+// Configuración del botón Cancelar
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Aquí puedes agregar la lógica para cancelar la eliminación de la cuenta
+                // ...
+                Toast.makeText(getActivity(), "Eliminación cancelada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+// Crear y mostrar el cuadro de diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+    }
+
+
     @Override
     public void onUpdateSuccess() {
         Toast.makeText(getContext(), "Actualizado correctamente", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteSucces() {
+        Toast.makeText(getActivity(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteError(String errorMessage) {
+        Toast.makeText(getContext(), "Error al eliminar", Toast.LENGTH_SHORT).show();
     }
 
     @Override
