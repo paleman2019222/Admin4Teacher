@@ -14,9 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
 
-    first_fragment primer_frag = new first_fragment();
-    second_fragment segundo_frag = new second_fragment();
-    third_fragment tercer_frag = new third_fragment();
+
 
     String nombre;
 
@@ -26,16 +24,19 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Bundle extras = getIntent().getExtras();
-        //loadFragment(segundo_frag);
-
+        //instanciamos fragmentos
+        first_fragment primer_frag = new first_fragment(getApplicationContext());
+        second_fragment segundo_frag = new second_fragment();
+        third_fragment tercer_frag = new third_fragment();
+        //Se asigna el fragmento que se iniciara al crearse la actividad
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(R.id.Contenedor_frames,primer_frag)
                 .commit();
+
+        //Se instancia un objeto que contiene los botons de abajo y se edita el OnClick listener para cambiar de fragmentos
         BottomNavigationView navegation = findViewById(R.id.bottom_navegation);
         navegation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.first_fragment) {
@@ -73,6 +74,8 @@ public class Home extends AppCompatActivity {
 
     }
 
+
+    //metodo para cambiar de fragmento co un click
     public void loadFragment(Fragment fragmetn){
         FragmentTransaction transicion = getSupportFragmentManager().beginTransaction();
         transicion.replace(R.id.Contenedor_frames,fragmetn);

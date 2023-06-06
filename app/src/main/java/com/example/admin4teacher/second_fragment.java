@@ -87,7 +87,7 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        listAdapter.filtro(newText);
+        //listAdapter.filtro(newText);
         return false;
     }
     }
