@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Estudiantes"
+            android:exported="false" />
+        <activity
+            android:name=".Cursos"
+            android:exported="false" />
+        <activity
+            android:name=".Grado"
+            android:exported="false" />
+        <activity
             android:name=".RegisterView"
             android:exported="false" />
         <activity

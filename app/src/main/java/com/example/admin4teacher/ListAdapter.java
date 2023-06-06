@@ -1,13 +1,10 @@
 package com.example.admin4teacher;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mdata.clear();
                 List<ListElement> collect = Original_List.stream()
-                        .filter(i -> i.getMatertia().toLowerCase().contains(strSearch))
+                        .filter(i -> i.getName().toLowerCase().contains(strSearch))
                         .collect(Collectors.toList());
 
                 mdata.addAll(collect);
@@ -64,7 +61,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             else {
                 mdata.clear();
                 for (ListElement i : Original_List) {
-                    if (i.getMatertia().toLowerCase().contains(strSearch)) {
+                    if (i.getName().toLowerCase().contains(strSearch)) {
                         mdata.add(i);
                     }
                 }
@@ -74,21 +71,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView Imagen;
-        TextView Curso,Grado,Estudiantes;
+        //ImageView Imagen;
+        TextView name, lastname;
 
         ViewHolder(View itemview){
             super(itemview);
-            Imagen = itemview.findViewById(R.id.imageView);
-            Curso = itemview.findViewById(R.id.nombre_curso);
-            Grado = itemview.findViewById(R.id.nombre_grado);
-            Estudiantes = itemview.findViewById(R.id.cant_estudiantes);
+
+            name = itemview.findViewById(R.id.nombre_estudiante);
+            lastname = itemview.findViewById(R.id.apellido_estudiante);
         }
         void bindData(final ListElement item){
-            Imagen.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
-            Curso.setText(item.getMatertia());
-            Grado.setText(item.getGrado());
-            Estudiantes.setText(item.getEstudiantes());
+            //Imagen.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
+            //Curso.setText(item.getMatertia());
+            name.setText(item.getName());
+            lastname.setText(item.getLastname());
         }
     }
 }
