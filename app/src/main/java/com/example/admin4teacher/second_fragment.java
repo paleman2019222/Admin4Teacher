@@ -76,32 +76,10 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
         svSearch = (SearchView) root.findViewById(R.id.busqueda);
         recyclerView = root.findViewById(R.id.layout_tarjetas);;
 
-        init();
         initListener();
         return root;
     }
-    public void init (){
-        ingreso_datos();
-        listAdapter = new ListAdapter(elements,getContext());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(listAdapter);
-    }
-    public void ingreso_datos(){
-        elements = new ArrayList<>();
-        elements.add(new ListElement("#775445","4to Bachierato","Ingles","20"));
-        elements.add(new ListElement("#607d8b","5to Magisterio","Matematica","10"));
-        elements.add(new ListElement("#03a9f4","3ro Basico","Estadistica","11" ));
-        elements.add(new ListElement("#775445","4to Bachierato","Ingles","16" ));
-        elements.add(new ListElement("#775445","4to Bachierato","Ingles","20" ));
-        elements.add(new ListElement("#607d8b","5to Magisterio","Matematica","10"));
-        elements.add(new ListElement("#03a9f4","3ro Basico","Estadistica","11" ));
-        elements.add(new ListElement("#775445","4to Bachierato","Ingles","16" ));
-        elements.add(new ListElement("#775445","4to Bachierato","Ingles","20" ));
-        elements.add(new ListElement("#607d8b","5to Magisterio","Matematica","10"));
-        elements.add(new ListElement("#03a9f4","3ro Basico","Estadistica","11" ));
-        elements.add(new ListElement("#775445","4to Bachierato","Literatura","16" ));
-    }
+
     private void initListener(){svSearch.setOnQueryTextListener(this);}
 
     @Override
