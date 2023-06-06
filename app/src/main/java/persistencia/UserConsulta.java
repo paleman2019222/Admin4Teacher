@@ -27,15 +27,11 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
     //TextView label = (TextView) findViewById(R.id.textError);
     private LoginResultListener loginResultListener;
     private UserResultListener userResultListener;
-
     private UserRegisterListener userRegisterListener;
-
     private UserUpdateListener userUpdateListener;
-
     private UserDeleteListener userDeleteListener;
 
-
-
+    //Modificadores de acceso para acceder desde otra clase y enviar si hubo error o funcionó
     public void setUserDeleteListener(UserDeleteListener userDeleteListener) {
         this.userDeleteListener = userDeleteListener;
     }
@@ -52,36 +48,86 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
         this.userResultListener = userResultListener;
     }
 
+    public void setLoginResultListener(LoginResultListener loginResultListener) {
+        this.loginResultListener = loginResultListener;
+    }
+    public interface LoginResultListener {
+        void onLoginSuccess(User user);
+
+        void onLoginError(String errorMessage);
+    }
 
 
+    //interfaz que se implementa para verificar que el se recibieron los datos de usuario en un objeto tipo User
     public interface UserResultListener {
         void onUserReceived(User user);
     }
 
+    //se implementa pera verificar si un usuario se registró o si retorno error
     public interface UserRegisterListener{
         void onRegisterSuccess();
         void onRegisterError(String errorMessage);
     }
 
+    //verificar si los datos del usuario se actualizaron o si da error
     public interface UserUpdateListener{
         void onUpdateSuccess();
         void onUpdateError(String errorMessage);
     }
 
+    //verificar si un usuario se elimina o si retorna error
     public interface UserDeleteListener{
         void onDeleteSucces();
         void onDeleteError(String errorMessage);
     }
 
-    public void setLoginResultListener(LoginResultListener loginResultListener) {
-        this.loginResultListener = loginResultListener;
-    }
 
-    public interface LoginResultListener {
-        void onLoginSuccess(User user);
-        void onLoginError(String errorMessage);
+        //controla cuadno cualquier método NO devuelve error y se tiene respuesta del servidor
+        @Override
+        public void onResponse(JSONObject response) {
+            JSONArray jsonArray = response.optJSONArray("datos");
+            JSONObject jsonObject= null;
+            persistencia.User usuario = new User();
 
-    }
+
+                if(jsonArray!=null){
+                            //obtiene los datos del usuario devueltos por el servidor y los agrega al objeto usuario
+                    try {
+                        jsonObject = jsonArray.getJSONObject(0);
+                        usuario.setUser(jsonObject.optString("user"));
+                        usuario.setName(jsonObject.optString("name"));
+                        usuario.setLastname(jsonObject.optString("lastname"));
+                        usuario.setPassword(jsonObject.optString("password"));
+                        usuario.setEmail(jsonObject.optString("email"));
+                        usuario.setPhone(jsonObject.optString("phone"));
+                        usuario.setIdUser(jsonObject.optString("idUser"));
+
+                    } catch (JSONException e){
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                //if's que verifican que las respuestas no sean nulas para ejecutar el código cuando si hay respuesta del servidor.
+                if (loginResultListener != null & userResultListener!=null) {
+                    loginResultListener.onLoginSuccess(usuario);
+                    userResultListener.onUserReceived(usuario);
+                }
+                if(userRegisterListener!=null){
+                    userRegisterListener.onRegisterSuccess();
+
+                }
+                if(userUpdateListener!=null){
+                    userUpdateListener.onUpdateSuccess();
+                }
+                if(userDeleteListener!=null){
+                    userDeleteListener.onDeleteSucces();
+                }
+
+        }
+
+
+
+        //Se ejecuta cuando la respuesta del servidor es un error
     @Override
     public void onErrorResponse(VolleyError error) {
         String errorMessage = "Verifique los datos e intentelo nuevamente";
@@ -102,74 +148,35 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
             userDeleteListener.onDeleteError("No se ha podido eliminar la cuenta");
         }
 
-       // label.setText(error.toString());
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObject= null;
-        persistencia.User usuario = new User();
-        if(jsonArray!=null){
-
-
-
-            try {
-                jsonObject = jsonArray.getJSONObject(0);
-                usuario.setUser(jsonObject.optString("user"));
-                usuario.setName(jsonObject.optString("name"));
-                usuario.setLastname(jsonObject.optString("lastname"));
-                usuario.setPassword(jsonObject.optString("password"));
-                usuario.setEmail(jsonObject.optString("email"));
-                usuario.setPhone(jsonObject.optString("phone"));
-                usuario.setIdUser(jsonObject.optString("idUser"));
-
-            } catch (JSONException e){
-                throw new RuntimeException(e);
-            }
-        }
-        if (loginResultListener != null & userResultListener!=null) {
-            loginResultListener.onLoginSuccess(usuario);
-            userResultListener.onUserReceived(usuario);
-        }
-        if(userRegisterListener!=null){
-            userRegisterListener.onRegisterSuccess();
-
-        }
-        if(userUpdateListener!=null){
-            userUpdateListener.onUpdateSuccess();
-        }
-        if(userDeleteListener!=null){
-            userDeleteListener.onDeleteSucces();
-        }
-
     }
 
 
     public void iniciarSesion(String user, String password, RequestQueue rq, Context ctx) {
 
         try {
+            //Conexion a la bd
             String ip = "http://4teacher.atspace.tv";
-
-
             String url = ip + "/sesion.php?user=" + user +
                     "&pwd=" + password;
+
+            //Recoge los datos de la url y los envía como json al servidor.
             JsonRequest jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             rq.add(jrq);
-            //VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jrq);
+
         } catch (Exception error) {
             // label.setText(error.toString());
         }
 
 }
 
+    //metodo para registrar un usuario
     public void registrarUsuario(RequestQueue rq, String name, String lastname, String email, String phone, String user, String password) {
 
         String ip = "http://4teacher.atspace.tv";
         String url = ip + "/saveUser.php?name="+name+"&lastname="+lastname+"&email="+email+"&phone="+phone+"&user="+user+"&password="+password;
 
+        //Recoge los datos de la url y los envía como json al servidor
         try {
             JsonRequest jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -179,6 +186,7 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
         }
     }
 
+        //método para editar los datos de un usuario
     public void editarUsuario(RequestQueue rq, String name, String lastname, String email, String phone, String user, String iduser){
         String ip = "http://4teacher.atspace.tv";
         String url = ip+"/updateUser.php?name="+name+"&lastname="+lastname+"&phone="+phone+"&email="+email+"&user="+user+"&iduser="+iduser;
@@ -190,24 +198,9 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
         }catch (Exception error){
 
         }
-
     }
 
-    public void eliminarUsuario(RequestQueue rq, String idUser){
-        String ip = "http://4teacher.atspace.tv";
-        String url = ip+"/deleteUser.php?iduser="+idUser;
-
-        try {
-            JsonRequest jrq;
-            jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-            rq.add(jrq);
-        }catch (Exception error){
-
-        }
-
-    }
-
-
+    //método para eliminar un usuario
 
     public void webServiceEliminar(Context context, RequestQueue rq, String idUser) {
 
@@ -228,7 +221,7 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
                 }else{
                     if (response.trim().equalsIgnoreCase("noExiste")){
 
-                        Log.i("RESPUESTA: ",""+response);
+                        Toast.makeText(context,"Error al eliminar",Toast.LENGTH_SHORT).show();
                     }else{
 
                         Log.i("RESPUESTA: ",""+response);
