@@ -197,7 +197,8 @@ public class class_consulta extends AppCompatActivity implements Response.Listen
     public void query_class(String idUser, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/query_classes.php? idUser ="+idUser;
+            String url = ip + "/query_classes2.php?idUser="+idUser;
+            //http://4teacher.atspace.tv/query_classes2.php?idUser=1
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             rq.add(jrq);
