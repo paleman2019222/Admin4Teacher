@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.admin4teacher.Interfaces.AuxiliarClasses;
 import com.example.admin4teacher.adapter.Adaptador_Classes;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +60,16 @@ public class first_fragment extends Fragment implements
     FloatingActionButton add_class;
     Context ctx;
     View root;
+    String idUser;
 
 
     //debido a que hay problemas con el contexto cree otro constructor
     // el cual pide el contexto del activity asi me ahorro problemas
-    public first_fragment(Context ctx) {
+    public first_fragment(Context ctx, String id) {
         this.ctx = ctx;
+        this.idUser = id;
     }
+    public first_fragment(Context ctx) {this.ctx = ctx;}
 
     public first_fragment() {
         // Required empty public constructor
@@ -110,7 +116,35 @@ public class first_fragment extends Fragment implements
         add_class.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                add_class("4to Bach","1");
+                LayoutInflater inflater = requireActivity().getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_add_class, null);
+
+                TextInputLayout box = dialogView.findViewById(R.id.txtDialogClassName);
+                EditText dialogEditTextName =  box.findViewById(R.id.editClaseName);
+
+
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(requireContext());
+                dialogBuilder.setTitle("Ingrese el nombre de la clase");
+                dialogBuilder.setView(dialogView);
+                dialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!dialogEditTextName.getText().toString().isEmpty()) {
+                            String nombre = dialogEditTextName.getText().toString();
+                            add_class(nombre, idUser);
+                        }else{
+                            Toast.makeText(getContext(), "debes agregar un nombre ala clase", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialogBuilder.setNegativeButton("Cancelar", null);
+
+                // Muestra el cuadro de diálogo
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.show();
+
+
             }});
 
         //init es el metodo que consulta la ta classes y debuelve todas las que esten alli

@@ -24,8 +24,9 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Bundle extras = getIntent().getExtras();
+        String idUser = extras.getString("idUser");
         //instanciamos fragmentos
-        first_fragment primer_frag = new first_fragment(getApplicationContext());
+        first_fragment primer_frag = new first_fragment(getApplicationContext(),idUser);
         second_fragment segundo_frag = new second_fragment();
         third_fragment tercer_frag = new third_fragment();
         //Se asigna el fragmento que se iniciara al crearse la actividad
@@ -40,6 +41,8 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.first_fragment) {
+
+
                     loadFragment(primer_frag);
                     return true;
                 }

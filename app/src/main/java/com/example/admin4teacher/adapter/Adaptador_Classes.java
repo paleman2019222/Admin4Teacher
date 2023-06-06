@@ -220,4 +220,4 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
 
         }
     }
-}
+}//*@% el que lo lea
