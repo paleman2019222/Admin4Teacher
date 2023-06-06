@@ -3,6 +3,7 @@ package com.example.admin4teacher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -25,7 +26,12 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Bundle extras = getIntent().getExtras();
-        loadFragment(segundo_frag);
+        //loadFragment(segundo_frag);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.Contenedor_frames,primer_frag)
+                .commit();
         BottomNavigationView navegation = findViewById(R.id.bottom_navegation);
         navegation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
