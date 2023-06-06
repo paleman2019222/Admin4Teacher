@@ -1,47 +1,28 @@
 package com.example.admin4teacher;
 
 public class ListElement {
-    public String color;
-    public String grado;
-    public String matertia;
-    public String estudiantes;
+    public String name;
+    public String lastname;
 
-    public ListElement(String color, String grado, String matertia, String estudiantes) {
-        this.color = color;
-        this.grado = grado;
-        this.matertia = matertia;
-        this.estudiantes = estudiantes;
+    public ListElement(String name,String lastname) {
+        this.name = name;
+        this.lastname = lastname;
     }
 
-    public String getEstudiantes() {
-        return estudiantes;
+    public String getName() {
+        return name;
     }
 
-    public void setEstudiantes(String estudiantes) {
-        this.estudiantes = estudiantes;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getGrado() {
-        return grado;
-    }
-
-    public void setGrado(String grado) {
-        this.grado = grado;
-    }
-
-    public String getMatertia() {
-        return matertia;
-    }
-
-    public void setMatertia(String matertia) {
-        this.matertia = matertia;
-    }
 }
