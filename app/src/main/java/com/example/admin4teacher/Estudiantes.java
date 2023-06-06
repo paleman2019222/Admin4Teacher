@@ -11,7 +11,7 @@ public class Estudiantes extends AppCompatActivity {
 
     public ArrayList listEstudiantes;
     
-    ListAdapter adaptador = new ListAdapter();
+    //ListAdapter adaptador = new ListAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
