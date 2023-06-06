@@ -190,7 +190,7 @@ public class first_fragment extends Fragment implements
     public void init(){
         class_consulta cls_cs = new class_consulta();
         cls_cs.setqueryResultListener(this);
-        cls_cs.query_class(rq,activity);
+        cls_cs.query_class(idUser,rq,activity);
     }
     //lo mimo para los otros metodos solo que esos edito diferentes listener para mostrar diferentes Toast
 
@@ -204,7 +204,7 @@ public class first_fragment extends Fragment implements
         RequestQueue rqq = Volley.newRequestQueue(context);
         class_consulta cls_cs = new class_consulta(context);
         cls_cs.setDeleteResultListener(this);
-        cls_cs.delete_class(id,rqq,context);
+        cls_cs.delete_class(id,idUser,rqq,context);
     }
 
 

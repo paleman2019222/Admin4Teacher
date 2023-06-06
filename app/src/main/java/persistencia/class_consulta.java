@@ -194,10 +194,10 @@ public class class_consulta extends AppCompatActivity implements Response.Listen
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
-    public void query_class(RequestQueue rq, Context ctx){
+    public void query_class(String idUser, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/query_classes.php";
+            String url = ip + "/query_classes.php? idUser ="+idUser;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             rq.add(jrq);
@@ -216,10 +216,10 @@ public class class_consulta extends AppCompatActivity implements Response.Listen
         } catch (Exception error) {Log.i("error", error.toString());}
     }
 
-    public void delete_class(String idclass,RequestQueue rq, Context context) {
+    public void delete_class(String idclass,String idUser,RequestQueue rq, Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/delete_class.php? idClass="+idclass;
+            String url = ip + "/delete_class.php? idClass="+idclass+"& teacher="+idUser;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, deleteListener, this);
             rq.add(jrq);
