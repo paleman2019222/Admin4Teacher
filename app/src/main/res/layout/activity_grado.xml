@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="50dp"
+        android:onClick="irEstudiantes"
         app:srcCompat="@drawable/baseline_person_24" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -34,6 +35,7 @@
         android:layout_height="150dp"
         android:layout_marginLeft="130dp"
         android:layout_marginTop="60dp"
+        android:onClick="irCurso"
         app:srcCompat="@drawable/libro" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_Curso"
