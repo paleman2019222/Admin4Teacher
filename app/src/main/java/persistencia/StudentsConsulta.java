@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class StudentsConsulta  extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     //private LoginResultListener loginResultListener;
-    private StudentsResultListener userResultListener;
+    //private StudentsResultListener userResultListener;
 
     private UserConsulta.UserRegisterListener userRegisterListener;
 

@@ -10,9 +10,14 @@ import java.util.List;
 
 public class Estudiantes extends AppCompatActivity {
 
+
     List<ListElement> elements;
     ListAdapter adapter;
     RecyclerView recycler;
+
+    public ArrayList listEstudiantes;
+    
+    //ListAdapter adaptador = new ListAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

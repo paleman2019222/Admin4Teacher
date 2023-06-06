@@ -39,15 +39,6 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment second_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static second_fragment newInstance(String param1, String param2) {
         second_fragment fragment = new second_fragment();
         Bundle args = new Bundle();
@@ -73,21 +64,21 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
         View root = inflater.inflate(R.layout.fragment_second_fragment, container, false);
         //Tarjetas, recycler vie
 
-        svSearch = (SearchView) root.findViewById(R.id.busqueda);
-        recyclerView = root.findViewById(R.id.layout_tarjetas);;
+        //svSearch = (SearchView) root.findViewById(R.id.busqueda);
+        recyclerView = root.findViewById(R.id.layout_actividades);
 
-        initListener();
+        //initListener();
         return root;
     }
 
-    private void initListener(){svSearch.setOnQueryTextListener(this);}
+    //private void initListener(){svSearch.setOnQueryTextListener(this);}
 
     @Override
     public boolean onQueryTextSubmit(String query) {return false;}
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        listAdapter.filtro(newText);
+        //listAdapter.filtro(newText);
         return false;
     }
     }
