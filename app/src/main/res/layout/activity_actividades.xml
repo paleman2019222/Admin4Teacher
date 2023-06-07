@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Actividades"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="#374259">
 
 
     <androidx.cardview.widget.CardView
