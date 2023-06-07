@@ -13,13 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import persistencia.Students;
+
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    private List<ListElement> mdata;
-    private List<ListElement> Original_List;
+    private List<Students> mdata;
+    private List<Students> Original_List;
     private LayoutInflater mInflater;
     private Context context;
 
-    public ListAdapter(List<ListElement> itemList, Context context){
+    public ListAdapter(List<Students> itemList, Context context){
         this.mInflater = LayoutInflater.from(context);
         this.context= context;
         this.mdata = itemList;
@@ -42,7 +44,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public int getItemCount() {return mdata.size();}
 
-    public void setItems(List<ListElement>items){mdata = items;}
+    public void setItems(List<Students>items){mdata = items;}
 
     public void filtro(final String strSearch) {
         if (strSearch.length() == 0) {
@@ -52,7 +54,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mdata.clear();
-                List<ListElement> collect = Original_List.stream()
+                List<Students> collect = Original_List.stream()
                         .filter(i -> i.getName().toLowerCase().contains(strSearch))
                         .collect(Collectors.toList());
 
@@ -60,7 +62,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             }
             else {
                 mdata.clear();
-                for (ListElement i : Original_List) {
+                for (Students i : Original_List) {
                     if (i.getName().toLowerCase().contains(strSearch)) {
                         mdata.add(i);
                     }
@@ -77,10 +79,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ViewHolder(View itemview){
             super(itemview);
 
-            name = itemview.findViewById(R.id.nombre_estudiante);
-            lastname = itemview.findViewById(R.id.apellido_estudiante);
+            name = (TextView) itemview.findViewById(R.id.nombre_estudiante);
+            lastname = (TextView) itemview.findViewById(R.id.apellido_estudiante);
         }
-        void bindData(final ListElement item){
+        void bindData(final Students item){
             //Imagen.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
             //Curso.setText(item.getMatertia());
             name.setText(item.getName());

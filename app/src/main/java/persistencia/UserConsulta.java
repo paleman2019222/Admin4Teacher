@@ -34,6 +34,9 @@ public class UserConsulta extends AppCompatActivity implements Response.Listener
 
     private UserDeleteListener userDeleteListener;
 
+    public UserConsulta(){
+
+    }
 
 
     public void setUserDeleteListener(UserDeleteListener userDeleteListener) {
