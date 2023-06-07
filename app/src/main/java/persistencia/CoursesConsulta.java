@@ -90,8 +90,9 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
                 for (int i = 0; i < jsonArray.length(); i++) {
                     course = new Course();
                     jsonObject = jsonArray.getJSONObject(i);
+                    course.setIdCourse(jsonObject.optString("idCourse"));
                     course.setCourseName(jsonObject.optString("courseName"));
-                    course.setIdCourse(jsonObject.optString("idClass"));
+                    course.setIdClass(jsonObject.optString("idClass"));
 
                     //luego de asignar los datos, asigno la clase a la lista de clases
                     elements.add(course);
@@ -124,6 +125,7 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
                     for (int i = 0; i < jsonArray.length(); i++) {
                         course = new Course();
                         jsonObject = jsonArray.getJSONObject(i);
+                        course.setIdCourse(jsonObject.optString("idCourse"));
                         course.setCourseName(jsonObject.optString("courseName"));
                         course.setDescription(jsonObject.optString("description"));
                         course.setIdClass(jsonObject.optString("idClass"));
@@ -154,6 +156,7 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
                     for (int i = 0; i < jsonArray.length(); i++) {
                         course = new Course();
                         jsonObject = jsonArray.getJSONObject(i);
+                        course.setIdCourse(jsonObject.optString("idCourse"));
                         course.setCourseName(jsonObject.optString("courseName"));
                         course.setDescription(jsonObject.optString("description"));
                         course.setIdClass(jsonObject.optString("idClass"));

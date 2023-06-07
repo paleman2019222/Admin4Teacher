@@ -62,7 +62,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
         elements = new ArrayList<>();
         ctx = this;
         rq = Volley.newRequestQueue(getApplicationContext());
-        Adapter = new Adaptador_Courses(elements,getApplicationContext());
+        Adapter = new Adaptador_Courses(elements,Cursos.this);
         Bundle extras = getIntent().getExtras();
         idClass = extras.getString("id");
         nameCourse = extras.getString("name");
@@ -126,7 +126,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
 
 
     @Override
-    public void opcionEliminar(@NonNull final Course curso, Context context) {
+    public void opcionEliminar(Course curso, Context context) {
         delete_course(curso.getIdCourse(),curso.getIdClass(),context);
     }
 
@@ -143,7 +143,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
 
     @Override
     public void onDeleteSucces(List<Course> elements, Context contexto) {
-
+        Toast.makeText(contexto,"Eliminado correctamente",Toast.LENGTH_LONG).show();
     }
 
     @Override
