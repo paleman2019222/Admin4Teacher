@@ -22,9 +22,9 @@ import persistencia.Classes;
 
 public class Adaptador_Actividades extends RecyclerView.Adapter<Adaptador_Actividades.ViewHolder>{
     private List<Activities> mdata;
-    private List<Activities> Original_List;
-    private LayoutInflater mInflater;
-    private Context context;
+    private final List<Activities> Original_List;
+    private final LayoutInflater mInflater;
+    private final Context context;
 
     public Adaptador_Actividades(List<Activities> itemList, Context context) {
         this.mInflater = LayoutInflater.from(context);

@@ -151,9 +151,6 @@ public class first_fragment extends Fragment implements
 
             }});
 
-
-
-
         //init es el metodo que consulta la ta classes y debuelve todas las que esten alli
         init();
         return root;

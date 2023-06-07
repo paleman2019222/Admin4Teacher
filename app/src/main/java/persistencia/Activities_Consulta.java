@@ -53,10 +53,10 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
             Log.i("error", error.toString());}
 
     }
-    public void add_activity(String idActivity, RequestQueue rq, Context ctx){
+    public void add_activity(String title,String description,String date,String idCourse, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/insert_activity.php?idCourse="+idActivity;
+            String url = ip + "/insert_activity.php?id_course="+idCourse+"&title="+title+"&description="+description+"&date="+date;
             //String url = "http://4teacher.atspace.tv/query_activity.php?idCourse=1";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -65,10 +65,10 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
             Log.i("error", error.toString());}
 
     }
-    public void delete_activity(String idActivity, RequestQueue rq, Context ctx){
+    public void delete_activity(String idActivity,String idCourse, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/delete_activity.php?idCourse="+idActivity;
+            String url = ip + "/delete_activity.php?idActivity="+idActivity+"idCourse="+idCourse;
             //String url = "http://4teacher.atspace.tv/query_activity.php?idCourse=1";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

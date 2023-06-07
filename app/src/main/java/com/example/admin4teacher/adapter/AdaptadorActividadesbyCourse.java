@@ -3,7 +3,6 @@ package com.example.admin4teacher.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.admin4teacher.Actividades;
-import com.example.admin4teacher.Interfaces.AuxiliarActivities;
 import com.example.admin4teacher.ListaActividades;
 import com.example.admin4teacher.R;
 
@@ -28,9 +27,9 @@ import persistencia.Activities;
 
 public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<AdaptadorActividadesbyCourse.ViewHolder>{
     private List<Activities> mdata;
-    private List<Activities> Original_List;
-    private LayoutInflater mInflater;
-    private Context context;
+    private final List<Activities> Original_List;
+    private final LayoutInflater mInflater;
+    private final Context context;
 
     public AdaptadorActividadesbyCourse(List<Activities> itemList, Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -54,7 +53,7 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"has dado en: "+tarea.getCourseName()+", "+tarea.getTitle(),Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"has dado en: "+tarea.getIdActivity()+", "+tarea.getTitle(),Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, Actividades.class);
                 i.putExtra("title", tarea.getTitle());
                 i.putExtra("description", tarea.getDescription());
@@ -62,7 +61,7 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
                 context.startActivity(i);
             }
         });
-        holder.boton.setOnClickListener(new eventodelete(tarea));
+        holder.boton.setOnClickListener(new AdaptadorActividadesbyCourse.eventodelete(tarea,context));
     }
 
     @Override
@@ -90,23 +89,28 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
     }
     public class eventodelete implements View.OnClickListener{
         Activities tarea;
+        Context ctx;
 
-        public eventodelete(Activities tarea) {
+        public eventodelete(Activities tarea, Context ctx) {
             this.tarea = tarea;
+            this.ctx = ctx;
         }
 
         @Override
         public void onClick(View view) {
+
+            ListaActividades instancias = new ListaActividades();
             AlertDialog.Builder alerta = new AlertDialog.Builder(context);
             alerta.setTitle("Confirmacion");
             alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getCourseName());
             alerta.setCancelable(false);
-            Context finalContext = context;
             alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    AuxiliarActivities instancia = new ListaActividades();
-                    //actividades.deleteActivity(tarea.getIdActivity());
+
+                    //instancias.opcionEliminar(tarea,context);
+                    RequestQueue rqq = Volley.newRequestQueue(context);
+                    instancias.deleteActivity(tarea.getIdActivity(),tarea.getIdCourse(),rqq,context);
                     mdata.remove(tarea);
                     notifyDataSetChanged();
                 }
