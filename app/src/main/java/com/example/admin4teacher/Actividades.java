@@ -12,10 +12,9 @@ public class Actividades extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividades);
-        Bundle extras = getIntent().getExtras();
-        titulo = extras.getString("title");
-        descripsion = extras.getString("description");
-        fecha = extras.getString("date");
+        titulo = getIntent().getStringExtra("title");
+        descripsion = getIntent().getStringExtra("description");
+        fecha = getIntent().getStringExtra("date");
 
         TextView title = (TextView) findViewById(R.id.titulo_actividad_2);
         TextView description = (TextView) findViewById(R.id.txt_descripcion_2);

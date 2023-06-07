@@ -2,6 +2,7 @@ package com.example.admin4teacher.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.admin4teacher.Actividades;
 import com.example.admin4teacher.Cursos;
 import com.example.admin4teacher.Interfaces.AuxiliarClasses;
 import com.example.admin4teacher.Interfaces.AuxiliarCourses;
+import com.example.admin4teacher.ListaActividades;
 import com.example.admin4teacher.R;
 import com.example.admin4teacher.first_fragment;
 
@@ -65,8 +68,9 @@ public class Adaptador_Courses extends RecyclerView.Adapter<Adaptador_Courses.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"has dado clic en:"+holder.id+", "+holder.nombre_curso.getText().toString(),
-                        Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, ListaActividades.class);
+                        i.putExtra("id",curso.getIdCourse());
+                context.startActivity(i);
             }
         });
         holder.boton.setOnClickListener(new Adaptador_Courses.eventoBorrar(curso,context));

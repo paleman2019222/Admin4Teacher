@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.admin4teacher.Actividades;
+import com.example.admin4teacher.Interfaces.AuxiliarActivities;
 import com.example.admin4teacher.ListaActividades;
 import com.example.admin4teacher.R;
 
@@ -40,7 +43,7 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
     @NonNull
     @Override
     public AdaptadorActividadesbyCourse.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.tarjeta_actividad,null);
+        View view = mInflater.inflate(R.layout.tarjeta_actividades_by_course,null);
         return new AdaptadorActividadesbyCourse.ViewHolder(view);
     }
 
@@ -51,43 +54,15 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(context,"has dado en: "+tarea.getCourseName()+", "+tarea.getTitle(),Toast.LENGTH_LONG).show();
                 Intent i = new Intent(context, Actividades.class);
-                Bundle bolsa = new Bundle();
-                bolsa.putString("title", tarea.getTitle());
-                bolsa.putString("description", tarea.getDescription());
-                bolsa.putString("date", tarea.getFinishDate());
+                i.putExtra("title", tarea.getTitle());
+                i.putExtra("description", tarea.getDescription());
+                i.putExtra("date", tarea.getFinishDate());
                 context.startActivity(i);
             }
         });
-        holder.boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
-                alerta.setTitle("Confirmacion");
-                alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getCourseName());
-                alerta.setCancelable(false);
-                Context finalContext = context;
-                alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ListaActividades actividades = new ListaActividades();
-                        actividades.deleteActivity(tarea.getIdActivity());
-                        mdata.remove(tarea);
-                        notifyDataSetChanged();
-                    }
-                });
-                alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                //se muestra la alerta :)
-                alerta.show();
-            }
-        });
+        holder.boton.setOnClickListener(new eventodelete(tarea));
     }
 
     @Override
@@ -112,5 +87,39 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
             grado.setText(item.getCourseName());
             fecha.setText(item.getFinishDate());
         }
+    }
+    public class eventodelete implements View.OnClickListener{
+        Activities tarea;
+
+        public eventodelete(Activities tarea) {
+            this.tarea = tarea;
+        }
+
+        @Override
+        public void onClick(View view) {
+            AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+            alerta.setTitle("Confirmacion");
+            alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getCourseName());
+            alerta.setCancelable(false);
+            Context finalContext = context;
+            alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    AuxiliarActivities instancia = new ListaActividades();
+                    //actividades.deleteActivity(tarea.getIdActivity());
+                    mdata.remove(tarea);
+                    notifyDataSetChanged();
+                }
+            });
+            alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            //se muestra la alerta :)
+            alerta.show();
+        }
+
     }
 }
