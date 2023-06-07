@@ -179,10 +179,10 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
         }
     };
 
-    public void query_student(String idUser, RequestQueue rq, Context ctx){
+    public void query_student(String idclass, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/query_students.php?idClass="+idUser;
+            String url = ip + "/query_students.php?idClass="+idclass;
             //String url = "http://4teacher.atspace.tv/query_classes2.php?idUser=46";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -192,10 +192,10 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
 
     }
 
-    public void add_student(String idClass, RequestQueue rq,Context context) {
+    public void add_student(String carnet,String name, String lastname, String email, String idclass, RequestQueue rq,Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/insert_students.php?idClass="+idClass;
+            String url = ip + "/insert_students.php?carnet="+carnet+"&name="+name+"&lastname="+lastname+"&email="+email;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, insertListener, this);
             rq.add(jrq);
@@ -203,10 +203,10 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
         } catch (Exception error) {Log.i("error", error.toString());}
     }
 
-    public void delete_class(String idclass,String idUser,RequestQueue rq, Context context) {
+    public void delete_student(String idclass,String idstudent,RequestQueue rq, Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/delete_students.php?idClass="+idclass;//"& teacher="+idUser;
+            String url = ip + "/delete_students.php?idstudent="+idstudent+"&idclass="+idclass;//"& teacher="+idUser;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, DeleteStudentListener, this);
             rq.add(jrq);
