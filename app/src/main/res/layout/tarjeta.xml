@@ -2,68 +2,62 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tarjeta_curso"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:id="@+id/tarjetaStudent"
+    android:layout_width="200dp"
+    android:layout_height="250dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
         tools:ignore="UselessParent"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:background="#CFC2E8">
 
-        <ImageView
-            android:id="@+id/img_user"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/user"/>
+        <ImageButton
+            android:id="@+id/bttn_eliminarStudent"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:background="#00FFFFFF"
+            android:elevation="4dp"
+            android:src="@drawable/delete_" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_toEndOf="@id/img_user"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@color/md_theme_light_onPrimary"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/nombre_estudiante"
+                android:id="@+id/nombreStudent"
+                style="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:layout_marginBottom="2dp"
-                android:text="@string/Grado5"
+                android:text="Matemática"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                style="bold"/>
+                android:textSize="20sp"/>
             <TextView
-                android:id="@+id/apellido_estudiante"
+                android:id="@+id/apellidoStudent"
+                style="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/curso_mate"
-                android:textSize="15sp"/>
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="2dp"
+                android:text="Matemática"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/cant_estudiantes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="100dp"
-            android:text="@string/Estudiantes"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true"/>
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="80dp"
-            android:layout_height="70dp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/delete_" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

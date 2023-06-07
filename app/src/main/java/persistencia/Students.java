@@ -1,5 +1,7 @@
 package persistencia;
 
+import android.content.Context;
+
 public class Students {
 
     String idStudent;
@@ -8,17 +10,13 @@ public class Students {
     String lastname;
     String email;
     String idClass;
+    Context ctx;
 
     public Students() {
     }
 
-    public Students(String idStudent, String carnet, String name, String lastname, String email, String idClass) {
-        this.idStudent = idStudent;
-        this.carnet = carnet;
-        this.name = name;
-        this.lastname = lastname;
-        this.email = email;
-        this.idClass = idClass;
+    public Students(Context ctx) {
+        this.ctx = ctx;
     }
 
     public String getIdStudent() {

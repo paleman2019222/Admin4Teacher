@@ -33,9 +33,8 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
         //Constructor vacio
     }
 
-    public StudentsConsulta(Context contexto, List<Students> elements) {
+    public StudentsConsulta(Context contexto) {
         this.contexto = contexto;
-        this.elements = elements;
     }
 
     public interface QueryStudentsResultListener {
@@ -179,7 +178,7 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
         }
     };
 
-    public void query_student(String idclass, RequestQueue rq, Context ctx){
+    public void query_student(String idclass, RequestQueue rq){
         try {
             String ip = "http://4teacher.atspace.tv";
             String url = ip + "/query_students.php?idClass="+idclass;
@@ -195,7 +194,7 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
     public void add_student(String carnet,String name, String lastname, String email, String idclass, RequestQueue rq,Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/insert_students.php?carnet="+carnet+"&name="+name+"&lastname="+lastname+"&email="+email;
+            String url = ip + "/insert_students.php?carnet="+carnet+"&name="+name+"&lastname="+lastname+"&email="+email+"&idclass="+idclass;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, insertListener, this);
             rq.add(jrq);
@@ -203,7 +202,7 @@ public class StudentsConsulta  extends AppCompatActivity implements Response.Lis
         } catch (Exception error) {Log.i("error", error.toString());}
     }
 
-    public void delete_student(String idclass,String idstudent,RequestQueue rq, Context context) {
+    public void delete_student(String idstudent,String idclass,RequestQueue rq, Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
             String url = ip + "/delete_students.php?idstudent="+idstudent+"&idclass="+idclass;//"& teacher="+idUser;

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.admin4teacher.Interfaces.AuxiliarCourses;
+import com.example.admin4teacher.Interfaces.AuxiliarStudents;
 import com.example.admin4teacher.adapter.Adaptador_Classes;
 import com.example.admin4teacher.adapter.Adaptador_Courses;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -34,7 +35,7 @@ import persistencia.StudentsConsulta;
 import persistencia.class_consulta;
 
 //En esta actividad se muestra el listado de cursos de la BD
-public class Estudiantes extends AppCompatActivity implements StudentsConsulta.QueryStudentsResultListener, StudentsConsulta.InsertStudentsResultListener, StudentsConsulta.DeleteStudentsResultListener, AuxiliarCourses {
+public class Estudiantes extends AppCompatActivity implements StudentsConsulta.QueryStudentsResultListener, StudentsConsulta.InsertStudentsResultListener, StudentsConsulta.DeleteStudentsResultListener, AuxiliarStudents {
 
 
 
@@ -64,7 +65,7 @@ public class Estudiantes extends AppCompatActivity implements StudentsConsulta.Q
         elements = new ArrayList<>();
         ctx = this;
         rq = Volley.newRequestQueue(getApplicationContext());
-        Adapter = new ListAdapter(elements,getApplicationContext());
+        Adapter = new ListAdapter(elements,this);
         Bundle extras = getIntent().getExtras();
         idClass = extras.getString("id");
 
@@ -129,15 +130,12 @@ public class Estudiantes extends AppCompatActivity implements StudentsConsulta.Q
 
     }
 
-    @Override
-    public void opcionEliminar(@NonNull final Course curso, Context context) {
-        delete_student(curso.getIdCourse(),curso.getIdClass(),context);
-    }
 
 
     @Override
     public void onQuerySuccess(List<Students> elements) {
-
+        Adapter.setItems(elements);
+        recyclerView.setAdapter(Adapter);
     }
 
     @Override
@@ -150,8 +148,8 @@ public class Estudiantes extends AppCompatActivity implements StudentsConsulta.Q
 
     public void init(){
         StudentsConsulta students = new StudentsConsulta();
-        //courseconsulta.setqueryResultListener(this);
-        //courseconsulta.query_class(idClass,rq);
+        students.setQueryStudentsResultListener(this);
+        students.query_student(idClass,rq);
     }
     //lo mimo para los otros metodos solo que esos edito diferentes listener para mostrar diferentes Toast
 
@@ -161,21 +159,27 @@ public class Estudiantes extends AppCompatActivity implements StudentsConsulta.Q
         consulta.add_student(carnet,name,lastname,email,idclass,rq,ctx);
     }
 
-    public void delete_student(String idCourse,String idClass,Context context){
+    public void delete_student(String idStudent,String idClass,Context context){
         RequestQueue rqq = Volley.newRequestQueue(context);
-        CoursesConsulta courseconsulta = new CoursesConsulta(context);
-        //courseconsulta.setDeleteResultListener(this);
-        courseconsulta.delete_course(idCourse,idClass,rqq,context);
+        StudentsConsulta studenconsulta = new StudentsConsulta(context);
+        studenconsulta.setDeleteStudentsResultListener(this);
+        studenconsulta.delete_student(idStudent,idClass,rqq,context);
     }
 
     @Override
     public void onDeleteSucces(List<Students> elements, Context contexto) {
-
+                Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onInsertSucces(List<Students> elements) {
+        Adapter.setItems(elements);
+        recyclerView.setAdapter(Adapter);
+    }
 
+    @Override
+    public void opcionEliminar(Students student, Context context) {
+        delete_student(student.getIdStudent(),student.getIdClass(),context);
     }
 
 
