@@ -2,26 +2,26 @@ package persistencia;
 
 public class Course {
 
-    int idCourse;
+    String idCourse;
     String courseName;
     String description;
-    int idClass;
+    String idClass;
 
     public Course() {
     }
 
-    public Course(int idCourse, String courseName, String description, int idClass) {
+    public Course(String idCourse, String courseName, String description, String idClass) {
         this.idCourse = idCourse;
         this.courseName = courseName;
         this.description = description;
         this.idClass = idClass;
     }
 
-    public int getIdCourse() {
+    public String getIdCourse() {
         return idCourse;
     }
 
-    public void setIdCourse(int idCourse) {
+    public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
@@ -41,11 +41,11 @@ public class Course {
         this.description = description;
     }
 
-    public int getIdClass() {
+    public String getIdClass() {
         return idClass;
     }
 
-    public void setIdClass(int idClass) {
+    public void setIdClass(String idClass) {
         this.idClass = idClass;
     }
 }

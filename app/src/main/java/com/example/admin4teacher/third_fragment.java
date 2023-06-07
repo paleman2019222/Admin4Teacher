@@ -80,6 +80,7 @@ TextView labelNombre, labelApellido, labelUsuario, labelTelefono, labelEmail;
         // Inflate the layout for this fragment
 
         Bundle bundle = getArguments();
+
         String nombre = bundle.getString("nombre");
         String apellido = bundle.getString("apellido");
         String usuario = bundle.getString("usuario");
@@ -122,7 +123,7 @@ TextView labelNombre, labelApellido, labelUsuario, labelTelefono, labelEmail;
                 dialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Hola diste aceptar", Toast.LENGTH_SHORT).show();
+
                         editarU(rq, dialogEditTextName.getText().toString(), dialogEditTextLastName.getText().toString(),
                                 dialogEditTextEmail.getText().toString(), dialogEditTextPhone.getText().toString(),
                                 usuario, idUser);
@@ -195,6 +196,7 @@ TextView labelNombre, labelApellido, labelUsuario, labelTelefono, labelEmail;
     @Override
     public void onUpdateSuccess() {
         Toast.makeText(getContext(), "Actualizado correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Los cambios se reflejarán en el próximo inicio de sesión", Toast.LENGTH_SHORT).show();
     }
 
     @Override

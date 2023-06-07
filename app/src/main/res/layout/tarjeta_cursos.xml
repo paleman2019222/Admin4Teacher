@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tarjeta_curso"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        tools:ignore="UselessParent"
+        android:animateLayoutChanges="true"
+        android:background="#CFC2E8">
+
+        <ImageButton
+            android:id="@+id/bttn_eliminarCurso"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:background="#00FFFFFF"
+            android:elevation="4dp"
+            android:src="@drawable/delete_" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@color/md_theme_light_onPrimary"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nombre_curso"
+                style="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="2dp"
+                android:text="Matemática"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
