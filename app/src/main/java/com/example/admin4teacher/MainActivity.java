@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements UserConsulta.Logi
         i.putExtra("email", user.getEmail());
         i.putExtra("idUser", user.getIdUser());
         startActivity(i);
+        finish();
     }
 
     @Override
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements UserConsulta.Logi
     public void toRegister(View view){
         Intent i = new Intent(getApplicationContext(), RegisterView.class);
         startActivity(i);
+
     }
 
 

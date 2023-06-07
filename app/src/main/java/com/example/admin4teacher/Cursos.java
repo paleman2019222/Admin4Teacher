@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
     RequestQueue rq;
 
     AppCompatActivity activity ;
-    FloatingActionButton add_course;
+    FloatingActionButton add_course, goHome;
     Context ctx;
 
     String idClass, nameCourse;
@@ -69,11 +70,18 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
         txt.setText(nameCourse);
         recyclerView = findViewById(R.id.layout_RV_courses);
         add_course = (FloatingActionButton)findViewById(R.id.idFabAgregarCurso);
-
+        goHome = findViewById(R.id.idFabHome);
         //cambio las dimeciones del recicler y el manajer para que sea un gril de 2 columnas
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent i = new Intent(Cursos.this,Home.class);
+               startActivity(i);
+            }
+        });
 
         //este boton corresponde al boton flotante agregar
         //aun no he agregado el cuadro de dialogo, pero funciona

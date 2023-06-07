@@ -19,7 +19,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/layout_RV_courses"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingTop="55dp"/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/grupoFabCourse"
@@ -40,13 +41,7 @@
             app:fab_colorNormal="@color/green_light_2"
             android:src="@drawable/add"
             app:fab_size="mini" />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/idFabHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/green_light_2"
-            android:src="@drawable/baseline_home_24"
-            app:fab_size="mini" />
+    
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
