@@ -31,8 +31,7 @@ import persistencia.Activities_Consulta;
  * Use the {@link second_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class second_fragment extends Fragment implements Activities_Consulta.InsertActivityResultListener,
-        Activities_Consulta.DeletetActivityResultListener,
+public class second_fragment extends Fragment implements
         Activities_Consulta.QueryActivityResultListener{
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,13 +93,6 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
         recyclerView = root.findViewById(R.id.layout_actividades);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(contexto,LinearLayoutManager.VERTICAL,false));
-        FloatingActionButton bttn_add_activity = (FloatingActionButton)root.findViewById(R.id.idFabAgregar_Actividad);
-        bttn_add_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         init();
         return root;
@@ -110,34 +102,6 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
         Consulta = new Activities_Consulta();
         Consulta.setQueryActivityResultListener(this);
         Consulta.query_activity(idUser,rq,getContext());
-    }
-    void delete(){
-
-    }
-    void add(){
-
-    }
-
-
-    @Override
-    public void onInsertActivitySucces(List<Activities> list) {
-        Adapter.setItems(list);
-        recyclerView.setAdapter(Adapter);
-    }
-
-    @Override
-    public void onInsertActivityError(String errorMenssage) {
-        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDeleteActivitySucces(List<Activities> list) {
-        Toast.makeText(getContext(),"Se elimino la clase",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDeleteActivityError(String errorMenssage) {
-        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
     }
 
     @Override
