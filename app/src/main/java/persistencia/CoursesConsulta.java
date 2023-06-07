@@ -67,6 +67,10 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
     public void onErrorResponse(VolleyError error) {
         String errorMessage = "Error al conectar en la base de datos";
         error.printStackTrace();
+        String JSONvacio = "com.android.volley.ParseError: org.json.JSONException: Value [] of type org.json.JSONArray cannot be converted to JSONObject";
+        if(error.toString().equals(JSONvacio)){
+            errorMessage = "No hay cursos por mostrar";
+        }
         Log.i("ERROR conectar", error.toString());
         if (queryResultListener != null) {
             queryResultListener.onQueryError(errorMessage);
