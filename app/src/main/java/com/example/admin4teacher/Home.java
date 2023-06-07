@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity{
 
 
 
@@ -27,7 +27,7 @@ public class Home extends AppCompatActivity {
         String idUser = extras.getString("idUser");
         //instanciamos fragmentos
         first_fragment primer_frag = new first_fragment(getApplicationContext(),idUser);
-        second_fragment segundo_frag = new second_fragment();
+        second_fragment segundo_frag = new second_fragment(getApplicationContext());
         third_fragment tercer_frag = new third_fragment();
         //Se asigna el fragmento que se iniciara al crearse la actividad
         FragmentManager fragmentManager = getSupportFragmentManager();

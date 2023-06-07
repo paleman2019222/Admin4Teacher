@@ -1,7 +1,9 @@
 package com.example.admin4teacher;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,20 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.admin4teacher.adapter.Adaptador_Actividades;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import persistencia.Activities;
+import persistencia.Activities_Consulta;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link second_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class second_fragment extends Fragment implements SearchView.OnQueryTextListener{
+public class second_fragment extends Fragment implements Activities_Consulta.InsertActivityResultListener,
+        Activities_Consulta.DeletetActivityResultListener,
+        Activities_Consulta.QueryActivityResultListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +46,14 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
     List<Activities> elements;
     Adaptador_Actividades Adapter;
     RecyclerView recyclerView;
+    Activities_Consulta Consulta;
+    Context contexto;
+    RequestQueue rq;
+    AppCompatActivity activity;
+
+    public second_fragment( Context contexto) {
+        this.contexto = contexto;
+    }
 
     public second_fragment() {
         // Required empty public constructor
@@ -58,6 +75,8 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        activity = (AppCompatActivity) getActivity();
+        rq = Volley.newRequestQueue(contexto);
     }
 
     @Override
@@ -72,20 +91,60 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
         recyclerView = root.findViewById(R.id.layout_actividades);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        FloatingActionButton bttn_add_activity = (FloatingActionButton)root.findViewById(R.id.idFabAgregar_Actividad);
+        bttn_add_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        //svSearch = (SearchView) root.findViewById(R.id.busqueda);
-        //initListener();
+            }
+        });
+
+        init();
         return root;
     }
 
-    //private void initListener(){svSearch.setOnQueryTextListener(this);}
+    void init(){
+        Consulta = new Activities_Consulta();
+        Consulta.setQueryActivityResultListener(this);
+        Consulta.query_activity(rq,getContext());
+    }
+    void delete(){
+
+    }
+    void add(){
+
+    }
+
 
     @Override
-    public boolean onQueryTextSubmit(String query) {return false;}
+    public void onInsertActivitySucces(List<Activities> list) {
+        Adapter.setItems(list);
+        recyclerView.setAdapter(Adapter);
+    }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        //listAdapter.filtro(newText);
-        return false;
+    public void onInsertActivityError(String errorMenssage) {
+        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onDeleteActivitySucces(List<Activities> list) {
+        Toast.makeText(getContext(),"Se elimino la clase",Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onDeleteActivityError(String errorMenssage) {
+        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryActivitySucces(List<Activities> list) {
+        Adapter.setItems(list);
+        recyclerView.setAdapter(Adapter);
+    }
+
+    @Override
+    public void onQueryActivityError(String errorMenssage) {
+        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
+    }
+}
