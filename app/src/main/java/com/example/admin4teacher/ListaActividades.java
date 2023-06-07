@@ -48,9 +48,9 @@ public class ListaActividades extends AppCompatActivity implements
         consulta.find_Activity_query("9",rq,getApplicationContext());
     }
 
-    void deleteActivity(){
+    public void deleteActivity(String id){
         consulta.setDeletetActivityResultListener(this);
-        consulta.find_Activity_query(idCourse,rq,getApplicationContext());
+        consulta.find_Activity_query(id,rq,getApplicationContext());
     }
     void addActivity(){
         consulta.setInsertActivityResultListener(this);
