@@ -171,7 +171,7 @@ public class first_fragment extends Fragment implements
     //metodo si hubo un error en la consulta
     @Override
     public void onQueryError(String errorMessage) {
-        Toast.makeText(activity,errorMessage,Toast.LENGTH_LONG).show();
+        Toast.makeText(activity,errorMessage,Toast.LENGTH_SHORT).show();
     }
 
     //metodo si se elimino correctamente la clase

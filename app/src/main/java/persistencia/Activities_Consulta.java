@@ -40,10 +40,10 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
         this.queryActivityResultListener = queryActivityResultListener;
     }
 
-    public void query_activity( RequestQueue rq, Context ctx){
+    public void query_activity( String idUser,RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/query_activity.php";
+            String url = ip + "/query_activity.php?idUser="+idUser;
             //String url = "http://4teacher.atspace.tv/query_activity.php";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

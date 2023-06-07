@@ -51,9 +51,11 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
     Context contexto;
     RequestQueue rq;
     AppCompatActivity activity;
+    String idUser;
 
-    public second_fragment( Context contexto) {
+    public second_fragment( Context contexto,String id) {
         this.contexto = contexto;
+        this.idUser = id;
     }
 
     public second_fragment() {
@@ -107,7 +109,7 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
     void init(){
         Consulta = new Activities_Consulta();
         Consulta.setQueryActivityResultListener(this);
-        Consulta.query_activity(rq,getContext());
+        Consulta.query_activity(idUser,rq,getContext());
     }
     void delete(){
 
