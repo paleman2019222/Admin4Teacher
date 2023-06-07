@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.admin4teacher.adapter.Adaptador_Actividades;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import persistencia.Activities;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +34,8 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
     private String mParam1;
     private String mParam2;
 
-    List<ListElement> elements;
-    private SearchView svSearch;
-    ListAdapter listAdapter;
+    List<Activities> elements;
+    Adaptador_Actividades Adapter;
     RecyclerView recyclerView;
 
     public second_fragment() {
@@ -62,11 +65,15 @@ public class second_fragment extends Fragment implements SearchView.OnQueryTextL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_second_fragment, container, false);
-        //Tarjetas, recycler vie
+
+        elements = new ArrayList<>();
+        Adapter = new Adaptador_Actividades(elements,getContext());
+
+        recyclerView = root.findViewById(R.id.layout_actividades);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //svSearch = (SearchView) root.findViewById(R.id.busqueda);
-        recyclerView = root.findViewById(R.id.layout_actividades);
-
         //initListener();
         return root;
     }
