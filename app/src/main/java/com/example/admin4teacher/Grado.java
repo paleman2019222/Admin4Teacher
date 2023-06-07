@@ -27,6 +27,8 @@ public class Grado extends AppCompatActivity {
     //Cambiar pantalla a estudiantes
     public void irEstudiantes(View view){
         Intent i = new Intent(Grado.this,Estudiantes.class);
+        i.putExtra("id",idClass);
+        i.putExtra("name",nameCourse);
         startActivity(i);
     }
 

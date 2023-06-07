@@ -19,11 +19,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesConsulta extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class CoursesConsulta implements Response.Listener<JSONObject>, Response.ErrorListener {
 
-    private CoursesConsulta.QueryResultListener queryResultListener;
-    private CoursesConsulta.DeleteResultListener deleteResultListener;
-    private CoursesConsulta.InsertResultListener insertResultListener;
+    private CoursesConsulta.QueryResultListenerCourse queryResultListener;
+    private CoursesConsulta.DeleteResultListenerCourse deleteResultListener;
+    private CoursesConsulta.InsertResultListenerCourse insertResultListener;
 
 
     Context contexto;///te las comes sin...
@@ -40,25 +40,25 @@ public class CoursesConsulta extends AppCompatActivity implements Response.Liste
     }
 
 
-    public interface QueryResultListener {
+    public interface QueryResultListenerCourse {
         void onQuerySuccess(List<Course> elements);
         void onQueryError(String errorMessage);
     }
-    public interface DeleteResultListener {
+    public interface DeleteResultListenerCourse {
         void onDeleteSucces(List<Course>  elements, Context contexto);
     }
-    public interface InsertResultListener {
+    public interface InsertResultListenerCourse {
         void onInsertSucces(List<Course>  elements);
     }
 
-    public void setInsertResultListener(CoursesConsulta.InsertResultListener insertResultListener) {
+    public void setInsertResultListener(CoursesConsulta.InsertResultListenerCourse insertResultListener) {
         this.insertResultListener = insertResultListener;
     }
 
-    public void setqueryResultListener(CoursesConsulta.QueryResultListener queryResultListener) {
+    public void setqueryResultListener(CoursesConsulta.QueryResultListenerCourse queryResultListener) {
         this.queryResultListener = queryResultListener;
     }
-    public void setDeleteResultListener(CoursesConsulta.DeleteResultListener deleteResultListener) {
+    public void setDeleteResultListener(CoursesConsulta.DeleteResultListenerCourse deleteResultListener) {
         this.deleteResultListener = deleteResultListener;
     }
 
@@ -80,6 +80,7 @@ public class CoursesConsulta extends AppCompatActivity implements Response.Liste
         JSONArray jsonArray = response.optJSONArray("courses");
         JSONObject jsonObject= null;
         elements = new ArrayList<>();
+
         //aca creo un if para asegurarme que el JSON no es nulo
         if(!jsonArray.isNull(0)) {
             try {
@@ -176,11 +177,8 @@ public class CoursesConsulta extends AppCompatActivity implements Response.Liste
     //nada del otro mundo lo unico que cambia entre estos son los atributos que pide
     //y los archivos que se piden del servidor
     //unicamente eso joves
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
-    public void query_class(String idClass, RequestQueue rq, Context ctx){
+
+    public void query_class(String idClass, RequestQueue rq){
         try {
             String ip = "http://4teacher.atspace.tv";
             String url = ip + "/query_courses.php?idClass="+idClass;

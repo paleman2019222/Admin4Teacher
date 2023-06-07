@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -31,36 +32,36 @@ import persistencia.CoursesConsulta;
 import persistencia.class_consulta;
 
 //En esta actividad se muestra el listado de cursos de la BD
-public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteResultListener, CoursesConsulta.InsertResultListener, CoursesConsulta.QueryResultListener, AuxiliarCourses {
+public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteResultListenerCourse, CoursesConsulta.InsertResultListenerCourse, CoursesConsulta.QueryResultListenerCourse, AuxiliarCourses {
 
 
 
     List<Course> elements;
     Adaptador_Courses Adapter;
     RecyclerView recyclerView;
-
+    TextView txt;
     RequestQueue rq;
 
     AppCompatActivity activity ;
     FloatingActionButton add_course;
     Context ctx;
-    View root;
+
     String idClass, nameCourse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cursos);
-
+        txt = (TextView)findViewById(R.id.textView6);
         elements = new ArrayList<>();
-       // activity = (AppCompatActivity) getActivity();
-        rq = Volley.newRequestQueue(ctx);
-        Adapter = new Adaptador_Courses(elements,activity);
+        ctx = this;
+        rq = Volley.newRequestQueue(getApplicationContext());
+        Adapter = new Adaptador_Courses(elements,getApplicationContext());
         Bundle extras = getIntent().getExtras();
         idClass = extras.getString("id");
         nameCourse = extras.getString("name");
-
-        recyclerView = root.findViewById(R.id.layout_RV_classes);
-        add_course = (FloatingActionButton)root.findViewById(R.id.idFabAgregarCurso);
+        txt.setText(nameCourse);
+        recyclerView = findViewById(R.id.layout_RV_courses);
+        add_course = (FloatingActionButton)findViewById(R.id.idFabAgregarCurso);
 
         //cambio las dimeciones del recicler y el manajer para que sea un gril de 2 columnas
         recyclerView.setHasFixedSize(true);
@@ -73,7 +74,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
             @Override
             public void onClick(View view) {
 
-                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                LayoutInflater inflater = LayoutInflater.from(ctx);
                 View dialogView = inflater.inflate(R.layout.layout_add_course, null);
 
                 TextInputLayout box = dialogView.findViewById(R.id.txtDialogCourseName);
@@ -122,12 +123,13 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
 
     @Override
     public void onQuerySuccess(List<Course> elements) {
-
+        Adapter.setItems(elements);
+        recyclerView.setAdapter(Adapter);
     }
 
     @Override
     public void onQueryError(String errorMessage) {
-
+        Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -137,14 +139,15 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
 
     @Override
     public void onInsertSucces(List<Course> elements) {
-
+        Adapter.setItems(elements);
+        recyclerView.setAdapter(Adapter);
     }
 
 
     public void init(){
         CoursesConsulta courseconsulta = new CoursesConsulta();
         courseconsulta.setqueryResultListener(this);
-        courseconsulta.query_class(idClass,rq,activity);
+        courseconsulta.query_class(idClass,rq);
     }
     //lo mimo para los otros metodos solo que esos edito diferentes listener para mostrar diferentes Toast
 
