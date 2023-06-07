@@ -2,19 +2,20 @@ package com.example.admin4teacher.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.admin4teacher.Grado;
 import com.example.admin4teacher.Interfaces.AuxiliarClasses;
 import com.example.admin4teacher.R;
 import com.example.admin4teacher.first_fragment;
@@ -73,8 +74,10 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"has dado clic en:"+holder.id+", "+holder.nombre_clase.getText().toString(),
-                        Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, Grado.class);
+                i.putExtra("id",clase.getId_class());
+                i.putExtra("name",clase.getClass_name());
+                context.startActivity(i);
             }
         });
         holder.boton.setOnClickListener(new eventoBorrar(clase,context));
@@ -136,7 +139,7 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
         TextView nombre_clase;
         ImageButton boton;
         String id;
-        Adaptador_Classes Adapter = new Adaptador_Classes(mdata,context);
+        //Adaptador_Classes Adapter = new Adaptador_Classes(mdata,context);
 
         ViewHolder(View itemview){
             super(itemview);
@@ -161,9 +164,9 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
     //nos sirve para eliminar una tarjeta en la base de datos y en el recicler
     //implementamos el ONlickListener para que se comporte como uno
     //y sobreescribimos el Onclic listener
-    public class eventoBorrar  implements View.OnClickListener{
+    public class eventoBorrar   implements View.OnClickListener{
         //Intanciamos un objet de tipoclase
-        //y el contexto que a este punto ya paso por toda la app
+        //y el contexto, que a este punto ya paso por toda la appXD
         private Classes clase;
         Context ctx;
         //creamos el contructor el cual pide una clase y un context
@@ -220,4 +223,6 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
 
         }
     }
+
+
 }//*@% el que lo lea

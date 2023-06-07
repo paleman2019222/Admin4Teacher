@@ -2,17 +2,16 @@ package com.example.admin4teacher;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.admin4teacher.Interfaces.AuxiliarClasses;
 import com.example.admin4teacher.adapter.Adaptador_Classes;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -37,8 +35,8 @@ import persistencia.class_consulta;
 public class first_fragment extends Fragment implements
         class_consulta.QueryResultListener,
         class_consulta.DeleteResultListener,
-        AuxiliarClasses,
-        class_consulta.InsertResultListener{
+        class_consulta.InsertResultListener,
+        AuxiliarClasses {
     // estos 2 no sirven pero ya venian asi que los deje
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -61,6 +59,8 @@ public class first_fragment extends Fragment implements
     Context ctx;
     View root;
     String idUser;
+    //private final Intent i = null;
+
 
 
     //debido a que hay problemas con el contexto cree otro constructor
@@ -68,6 +68,8 @@ public class first_fragment extends Fragment implements
     public first_fragment(Context ctx, String id) {
         this.ctx = ctx;
         this.idUser = id;
+
+        //i = cambio;
     }
     public first_fragment(Context ctx) {this.ctx = ctx;}
 
@@ -96,6 +98,8 @@ public class first_fragment extends Fragment implements
         elements = new ArrayList<>();
         activity = (AppCompatActivity) getActivity();
         rq = Volley.newRequestQueue(ctx);
+        Adapter = new Adaptador_Classes(elements,activity);
+
     }
 
     @Override
@@ -134,7 +138,7 @@ public class first_fragment extends Fragment implements
                             String nombre = dialogEditTextName.getText().toString();
                             add_class(nombre, idUser);
                         }else{
-                            Toast.makeText(getContext(), "debes agregar un nombre ala clase", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "debes agregar un nombre a la clase", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -147,6 +151,9 @@ public class first_fragment extends Fragment implements
 
             }});
 
+
+
+
         //init es el metodo que consulta la ta classes y debuelve todas las que esten alli
         init();
         return root;
@@ -157,7 +164,7 @@ public class first_fragment extends Fragment implements
     // cambia el adaptador del recicler al nuevo con la lista de classes obtenida
     @Override
     public void onQuerySuccess(List<Classes> lista) {
-        Adapter = new Adaptador_Classes(lista,activity);
+        Adapter.setItems(lista);
         recyclerView.setAdapter(Adapter);
     }
 
@@ -177,7 +184,7 @@ public class first_fragment extends Fragment implements
     // funciona casi igual que la consulta pero este tien un Toast :)
     @Override
     public void onInsertSucces(List<Classes>  lista) {
-        Adapter = new Adaptador_Classes(lista,activity);
+        Adapter.setItems(lista);
         recyclerView.setAdapter(Adapter);
         Toast.makeText(activity,"se ha agregado la clase",Toast.LENGTH_LONG).show();
 
@@ -211,4 +218,6 @@ public class first_fragment extends Fragment implements
     //Metodo implementado de la Interfaz AuxiliarClasses el cual me permitira eliminar una clase
     @Override
     public void opcionEliminar(@NonNull final Classes clase, Context context) {delete_class(clase.getId_class(),context);}
-    }
+
+
+}

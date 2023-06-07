@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tarjeta_actividad"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
 
     <RelativeLayout
+        android:id="@+id/layout_tarjeta_actividad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="6dp"
@@ -19,6 +20,7 @@
 
 
         <LinearLayout
+            android:id="@+id/layout_datos_actividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -27,7 +29,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titulo"
+                android:id="@+id/titulo_actividad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -36,12 +38,27 @@
                 android:textSize="20sp"
                 style="bold"/>
             <TextView
-                android:id="@+id/nombre_grado"
+                android:id="@+id/nombre_grado_actividad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/curso_mate"
                 android:textSize="15sp"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/txt_fecha_actividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Fecha"
+            android:textSize="20sp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
