@@ -146,7 +146,7 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
         @Override
         public void onResponse(JSONObject response) {
             Course course = null;
-            JSONArray jsonArray = response.optJSONArray("classes");
+            JSONArray jsonArray = response.optJSONArray("courses");
             JSONObject jsonObject= null;
             elements = new ArrayList<>();
             if(!jsonArray.isNull(0)) {
@@ -193,7 +193,7 @@ public class CoursesConsulta implements Response.Listener<JSONObject>, Response.
     public void add_course(String courseName,String description, String idClass, RequestQueue rq,Context context) {
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/insert_course.php?nameClass="+courseName+"&description="+description+"&idClass="+idClass;
+            String url = ip + "/insert_course.php?courseName="+courseName+"&description="+description+"&idClass="+idClass;
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, insertListener, this);
             rq.add(jrq);

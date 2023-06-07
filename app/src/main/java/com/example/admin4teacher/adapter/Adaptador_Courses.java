@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.admin4teacher.Cursos;
 import com.example.admin4teacher.Interfaces.AuxiliarClasses;
 import com.example.admin4teacher.Interfaces.AuxiliarCourses;
 import com.example.admin4teacher.R;
@@ -191,7 +192,7 @@ public class Adaptador_Courses extends RecyclerView.Adapter<Adaptador_Courses.Vi
         public void onClick(View view) {
             //intanciamos un objeto de la interfaz la parate derecha del igual indica donde se usara
             //segun chat GPT duas pregunte alla yo no se xq
-            AuxiliarCourses instancia = (AuxiliarCourses) new first_fragment(context);
+            AuxiliarCourses instancia = new Cursos(context);
 
             //se crea el ALERTDIALOG
             AlertDialog.Builder alerta = new AlertDialog.Builder(context);

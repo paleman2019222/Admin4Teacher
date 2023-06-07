@@ -47,6 +47,13 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
     Context ctx;
 
     String idClass, nameCourse;
+
+
+    public Cursos(Context ctx) {this.ctx = ctx;}
+
+    public Cursos() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +84,15 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
                 LayoutInflater inflater = LayoutInflater.from(ctx);
                 View dialogView = inflater.inflate(R.layout.layout_add_course, null);
 
-                TextInputLayout box = dialogView.findViewById(R.id.txtDialogCourseName);
-                EditText dialogEditTextName =  box.findViewById(R.id.editCourseName);
-                EditText dialogEditTextDescription = box.findViewById(R.id.editdescription);
+                TextInputLayout boxName = dialogView.findViewById(R.id.txtDialogCourseName);
+                TextInputLayout boxDescription = dialogView.findViewById(R.id.txtDialogCourseDescription);
+
+                EditText dialogEditTextName = boxName.getEditText();
+                EditText dialogEditTextDescription = boxDescription.getEditText();
 
 
 
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Cursos.this);
                 dialogBuilder.setTitle("Ingrese los datos de curso");
                 dialogBuilder.setView(dialogView);
                 dialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
