@@ -5,6 +5,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,16 +76,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         //ImageView Imagen;
         TextView name, lastname;
-
+        ImageView imagen;
         ViewHolder(View itemview){
             super(itemview);
 
             name = (TextView) itemview.findViewById(R.id.nombre_estudiante);
             lastname = (TextView) itemview.findViewById(R.id.apellido_estudiante);
+            imagen = (ImageView)  itemview.findViewById(R.id.img_user);
         }
         void bindData(final Students item){
-            //Imagen.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
+
             //Curso.setText(item.getMatertia());
+
             name.setText(item.getName());
             lastname.setText(item.getLastname());
         }

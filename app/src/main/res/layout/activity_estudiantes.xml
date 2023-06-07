@@ -7,8 +7,15 @@
     tools:context=".Estudiantes">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="60dp"
         android:id="@+id/layout_RV_estudents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/busqueda_students"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:queryHint="@string/busqueda"
+        app:iconifiedByDefault="false"/>
 
 </RelativeLayout>
