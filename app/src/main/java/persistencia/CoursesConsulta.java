@@ -180,10 +180,10 @@ public class CoursesConsulta extends AppCompatActivity implements Response.Liste
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
-    public void query_class(String idCourse, RequestQueue rq, Context ctx){
+    public void query_class(String idClass, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/query_courses.php?idCourse="+idCourse;
+            String url = ip + "/query_courses.php?idClass="+idClass;
             //http://4teacher.atspace.tv/query_classes2.php?idUser=1
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

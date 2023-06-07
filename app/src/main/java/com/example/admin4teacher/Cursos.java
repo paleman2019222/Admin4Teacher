@@ -45,7 +45,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
     FloatingActionButton add_course;
     Context ctx;
     View root;
-    String idCourse;
+    String idClass, nameCourse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,9 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
        // activity = (AppCompatActivity) getActivity();
         rq = Volley.newRequestQueue(ctx);
         Adapter = new Adaptador_Courses(elements,activity);
-
+        Bundle extras = getIntent().getExtras();
+        idClass = extras.getString("id");
+        nameCourse = extras.getString("name");
 
         recyclerView = root.findViewById(R.id.layout_RV_classes);
         add_course = (FloatingActionButton)root.findViewById(R.id.idFabAgregarCurso);
@@ -89,9 +91,9 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
                         if(!dialogEditTextName.getText().toString().isEmpty()) {
                             String nombre = dialogEditTextName.getText().toString();
                             String description = dialogEditTextDescription.getText().toString();
-                            add_course(nombre, description, idCourse);
+                            add_course(nombre, description, idClass);
                         }else{
-                            Toast.makeText(getContext(), "debes agregar un nombre ala clase", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "debes agregar un nombre a el curso", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -109,7 +111,6 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
 
         //init es el metodo que consulta la ta classes y debuelve todas las que esten alli
         init();
-        return root;
 
     }
 
@@ -143,7 +144,7 @@ public class Cursos extends AppCompatActivity implements CoursesConsulta.DeleteR
     public void init(){
         CoursesConsulta courseconsulta = new CoursesConsulta();
         courseconsulta.setqueryResultListener(this);
-        courseconsulta.query_class(idCourse,rq,activity);
+        courseconsulta.query_class(idClass,rq,activity);
     }
     //lo mimo para los otros metodos solo que esos edito diferentes listener para mostrar diferentes Toast
 
