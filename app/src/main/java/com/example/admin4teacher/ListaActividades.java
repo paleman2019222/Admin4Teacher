@@ -33,7 +33,8 @@ public class ListaActividades extends AppCompatActivity implements
         Activities_Consulta.InsertActivityResultListener,
         Activities_Consulta.DeletetActivityResultListener,
         Activities_Consulta.QueryActivityResultListener,
-        AuxiliarActivities {
+        AuxiliarActivities,
+        AdaptadorActividadesbyCourse.Listener{
     List<Activities> elements;
     AdaptadorActividadesbyCourse Adapter;
     RecyclerView RV;//recicler view contenedor de tarjetas de actividades
@@ -57,13 +58,14 @@ public class ListaActividades extends AppCompatActivity implements
         setContentView(R.layout.activity_lista_actividades);
         RV = (RecyclerView) findViewById(R.id.layout_RV_estudents_curso);
         add_activity = (FloatingActionButton)findViewById(R.id.idFabAgregarActivity);
-        rq = Volley.newRequestQueue(getApplicationContext());
+        rq = Volley.newRequestQueue(ListaActividades.this);
         elements = new ArrayList<>();
-        Adapter = new AdaptadorActividadesbyCourse(elements,this);
+        Adapter = new AdaptadorActividadesbyCourse(elements,ListaActividades.this);
+        Adapter.setmListener(this);
         idCourse = getIntent().getStringExtra("id");
         consulta = new Activities_Consulta();
         RV.setHasFixedSize(true);
-        RV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        RV.setLayoutManager(new LinearLayoutManager(ListaActividades.this,LinearLayoutManager.VERTICAL,false));
 
 
 
@@ -136,10 +138,10 @@ public class ListaActividades extends AppCompatActivity implements
         consulta.find_Activity_query(idCourse,rq,ListaActividades.this);
     }
 
-    public void deleteActivity(String idActivity,String idCourse,RequestQueue rqq, Context context){
-            Activities_Consulta consulta2 = new Activities_Consulta(context);
-            consulta2.setDeletetActivityResultListener(this);
-            consulta2.delete_activity(idActivity,idCourse, rqq,  context);
+    public void deleteActivity(String idActivity,String idCourse){
+        //,RequestQueue rqq, Context context
+            consulta.setDeletetActivityResultListener(this);
+            consulta.delete_activity(idActivity,idCourse, rq, ListaActividades.this);
 
     }
     void addActivity(String title,String description,String date){
@@ -181,5 +183,10 @@ public class ListaActividades extends AppCompatActivity implements
     @Override
     public void opcionEliminar(Activities activities, Context context) {
         //deleteActivity(activities,context);
+    }
+
+    @Override
+    public void onButtonClick(Activities activities, Context context) {
+        deleteActivity(activities.getIdActivity(),activities.getIdCourse());
     }
 }

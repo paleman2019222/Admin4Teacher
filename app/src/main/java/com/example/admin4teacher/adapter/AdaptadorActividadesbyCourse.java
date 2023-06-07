@@ -25,7 +25,7 @@ import java.util.List;
 
 import persistencia.Activities;
 
-public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<AdaptadorActividadesbyCourse.ViewHolder>{
+public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<AdaptadorActividadesbyCourse.ViewHolder> implements View.OnClickListener{
     private List<Activities> mdata;
     private final List<Activities> Original_List;
     private final LayoutInflater mInflater;
@@ -61,12 +61,56 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
                 context.startActivity(i);
             }
         });
-        holder.boton.setOnClickListener(new AdaptadorActividadesbyCourse.eventodelete(tarea,context));
+        //holder.boton.setOnClickListener(new AdaptadorActividadesbyCourse.eventodelete(tarea,context));
+        holder.boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+                alerta.setTitle("Confirmacion");
+                alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getCourseName());
+                alerta.setCancelable(false);
+                alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mListener != null) {
+                            mListener.onButtonClick(tarea,context);
+                        }
+                        mdata.remove(tarea);
+                        notifyDataSetChanged();
+                    }
+                });
+                alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                //se muestra la alerta :)
+                alerta.show();
+
+
+
+
+            }
+        });
+    }
+    public interface Listener{
+        void onButtonClick(Activities activities, Context context);
+    }
+    private Listener mListener;
+
+    public void setmListener(Listener listener) {
+        this.mListener = listener;
     }
 
     @Override
     public int getItemCount() {return mdata.size();}
     public void setItems(List<Activities>items){mdata = items;}
+
+    @Override
+    public void onClick(View view) {
+
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -108,9 +152,6 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    //instancias.opcionEliminar(tarea,context);
-                    RequestQueue rqq = Volley.newRequestQueue(context);
-                    instancias.deleteActivity(tarea.getIdActivity(),tarea.getIdCourse(),rqq,context);
                     mdata.remove(tarea);
                     notifyDataSetChanged();
                 }
