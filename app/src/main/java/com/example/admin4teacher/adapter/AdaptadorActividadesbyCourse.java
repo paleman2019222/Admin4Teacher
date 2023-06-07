@@ -67,7 +67,7 @@ public class AdaptadorActividadesbyCourse extends RecyclerView.Adapter<Adaptador
             public void onClick(View view) {
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
                 alerta.setTitle("Confirmacion");
-                alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getCourseName());
+                alerta.setMessage("Esta seguro que desea Eliminar: " + tarea.getTitle());
                 alerta.setCancelable(false);
                 alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override

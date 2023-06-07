@@ -168,7 +168,7 @@ public class Estudiantes extends AppCompatActivity implements StudentsConsulta.Q
 
     @Override
     public void onDeleteSucces(List<Students> elements, Context contexto) {
-                Toast.makeText(this, "Eliminado correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Eliminado correctamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override

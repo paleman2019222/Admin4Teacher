@@ -68,7 +68,7 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
     public void delete_activity(String idActivity,String idCourse, RequestQueue rq, Context ctx){
         try {
             String ip = "http://4teacher.atspace.tv";
-            String url = ip + "/delete_activity.php?idActivity="+idActivity+"idCourse="+idCourse;
+            String url = ip + "/delete_activity.php?idActivity="+idActivity+"&idCourse="+idCourse;
             //String url = "delete_activity.php?idActivity="+idActivity+"idCourse="+idCourse";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

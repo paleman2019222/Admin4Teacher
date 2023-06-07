@@ -7,7 +7,8 @@
     android:layout_height="100dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:background="#A29CAC">
 
 
     <RelativeLayout
@@ -16,7 +17,8 @@
         android:layout_height="wrap_content"
         android:padding="6dp"
         tools:ignore="UselessParent"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:background="#E6E2EF">
 
 
         <LinearLayout

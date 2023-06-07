@@ -69,11 +69,11 @@ public class ListaActividades extends AppCompatActivity implements
 
 
 
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_activities, null);
+
         add_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_activities, null);
 
                 EditText dialogEditTextName = dialogView.findViewById(R.id.editTextName);
                 EditText dialogEditTextLastName = dialogView.findViewById(R.id.editTextLastName);
