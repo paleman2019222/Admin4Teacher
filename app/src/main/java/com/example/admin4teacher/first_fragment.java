@@ -97,7 +97,7 @@ public class first_fragment extends Fragment implements
         // desde cualquier otra instancia
         elements = new ArrayList<>();
         activity = (AppCompatActivity) getActivity();
-        rq = Volley.newRequestQueue(ctx);
+        rq = Volley.newRequestQueue(requireContext());
         Adapter = new Adaptador_Classes(elements,activity);
 
     }

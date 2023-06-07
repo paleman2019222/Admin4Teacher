@@ -2,17 +2,17 @@ package persistencia;
 
 public class Students {
 
-    String idStudent;
+    int idStudent;
     String carnet;
     String name;
     String lastname;
     String email;
-    String idClass;
+    int idClass;
 
     public Students() {
     }
 
-    public Students(String idStudent, String carnet, String name, String lastname, String email, String idClass) {
+    public Students(int idStudent, String carnet, String name, String lastname, String email, int idClass) {
         this.idStudent = idStudent;
         this.carnet = carnet;
         this.name = name;
@@ -21,11 +21,11 @@ public class Students {
         this.idClass = idClass;
     }
 
-    public String getIdStudent() {
+    public int getIdStudent() {
         return idStudent;
     }
 
-    public void setIdStudent(String idStudent) {
+    public void setIdStudent(int idStudent) {
         this.idStudent = idStudent;
     }
 
@@ -61,11 +61,11 @@ public class Students {
         this.email = email;
     }
 
-    public String getIdClass() {
+    public int getIdClass() {
         return idClass;
     }
 
-    public void setIdClass(String idClass) {
+    public void setIdClass(int idClass) {
         this.idClass = idClass;
     }
 }

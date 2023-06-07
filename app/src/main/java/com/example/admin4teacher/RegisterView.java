@@ -45,9 +45,11 @@ public class RegisterView extends AppCompatActivity implements UserConsulta.User
     }
 
     private void registrarU(){
-        usc.setUserRegisterListener(this);
-        usc.registrarUsuario(rq,txtName.getText().toString(),txtLastname.getText().toString(),
-                txtEmail.getText().toString(),txtPhone.getText().toString(),txtUser.getText().toString(),txtPassword.getText().toString());
+        if(validarCamposVacios()!=false && validarTelefono()!=false){
+            usc.setUserRegisterListener(this);
+            usc.registrarUsuario(rq,txtName.getText().toString(),txtLastname.getText().toString(),
+                    txtEmail.getText().toString(),txtPhone.getText().toString(),txtUser.getText().toString(),txtPassword.getText().toString());
+        }
     }
 
 
@@ -69,4 +71,35 @@ public class RegisterView extends AppCompatActivity implements UserConsulta.User
     public void onUserReceived(User user) {
         Toast.makeText(getApplicationContext(),"Si se pudo"+user.getUser(), Toast.LENGTH_SHORT).show();
     }
+
+    private boolean validarCamposVacios() {
+        String name = txtName.getText().toString();
+        String lastname = txtLastname.getText().toString();
+        String email = txtEmail.getText().toString();
+        String phone = txtPhone.getText().toString();
+        String user = txtUser.getText().toString();
+        String password = txtPassword.getText().toString();
+
+        if (name.isEmpty() || lastname.isEmpty() || email.isEmpty() || phone.isEmpty() || user.isEmpty() || password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Hay campos vacíos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+
+    private boolean validarTelefono() {
+        String phone = txtPhone.getText().toString();
+
+        // Verificar que el campo de teléfono contenga solo números
+        if (!phone.matches("\\d+")) {
+            Toast.makeText(getApplicationContext(), "El número de teléfono debe ser un dato númerico", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

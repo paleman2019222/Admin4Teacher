@@ -23,7 +23,7 @@
         app:fontFamily="@font/alata" />
 
     <ImageView
-        android:id="@+id/img_user"
+        android:id="@+id/imageView"
         android:layout_width="117dp"
         android:layout_height="114dp"
         android:layout_marginTop="20dp"
