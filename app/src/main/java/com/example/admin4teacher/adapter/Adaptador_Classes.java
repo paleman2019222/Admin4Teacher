@@ -75,6 +75,8 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, Grado.class);
+                i.putExtra("id",clase.getId_class());
+                i.putExtra("name",clase.getClass_name());
                 context.startActivity(i);
             }
         });
@@ -137,7 +139,7 @@ public class Adaptador_Classes extends RecyclerView.Adapter<Adaptador_Classes.Vi
         TextView nombre_clase;
         ImageButton boton;
         String id;
-        Adaptador_Classes Adapter = new Adaptador_Classes(mdata,context);
+        //Adaptador_Classes Adapter = new Adaptador_Classes(mdata,context);
 
         ViewHolder(View itemview){
             super(itemview);

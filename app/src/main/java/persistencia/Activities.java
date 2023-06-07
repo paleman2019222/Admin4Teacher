@@ -9,10 +9,14 @@ public class Activities {
     String title;
     String description;
     //Date initDate;
-    Date finishDate;
+    String finishDate;
+    String courseName;
 
-    public Activities() {
-    }
+    public Activities() {}
+
+    public String getCourseName() {return courseName;}
+
+    public void setCourseName(String courseName) {this.courseName = courseName;}
 
     public String getIdActivity() {return idActivity;}
 
@@ -30,7 +34,7 @@ public class Activities {
 
     public void setDescription(String description) {this.description = description;}
 
-    public Date getFinishDate() {return finishDate;}
+    public String getFinishDate() {return finishDate;}
 
-    public void setFinishDate(Date finishDate) {this.finishDate = finishDate;}
+    public void setFinishDate(String finishDate) {this.finishDate = finishDate;}
 }

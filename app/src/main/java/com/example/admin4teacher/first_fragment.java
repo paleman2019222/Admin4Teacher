@@ -138,7 +138,7 @@ public class first_fragment extends Fragment implements
                             String nombre = dialogEditTextName.getText().toString();
                             add_class(nombre, idUser);
                         }else{
-                            Toast.makeText(getContext(), "debes agregar un nombre ala clase", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "debes agregar un nombre a la clase", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
