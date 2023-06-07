@@ -79,6 +79,10 @@ public class class_consulta extends AppCompatActivity implements Response.Listen
     public void onErrorResponse(VolleyError error) {
         String errorMessage = "Error al conectar en la base de datos";
         error.printStackTrace();
+        String JSONvacio = "com.android.volley.ParseError: org.json.JSONException: Value [] of type org.json.JSONArray cannot be converted to JSONObject";
+        if(error.toString().equals(JSONvacio)){
+            errorMessage = "Aun no hay clases por mostrar";
+        }
         Log.i("ERROR conectar", error.toString());
         if (queryResultListener != null) {
             queryResultListener.onQueryError(errorMessage);
@@ -198,7 +202,7 @@ public class class_consulta extends AppCompatActivity implements Response.Listen
         try {
             String ip = "http://4teacher.atspace.tv";
             String url = ip + "/query_classes2.php?idUser="+idUser;
-            //http://4teacher.atspace.tv/query_classes2.php?idUser=1
+            //String url = "http://4teacher.atspace.tv/query_classes2.php?idUser=46";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             rq.add(jrq);
