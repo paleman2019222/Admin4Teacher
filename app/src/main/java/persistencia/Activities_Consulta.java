@@ -44,7 +44,7 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
         try {
             String ip = "http://4teacher.atspace.tv";
             String url = ip + "/query_activity.php";
-            //String url = "http://4teacher.atspace.tv/query_activity.php?idCourse=1";
+            //String url = "http://4teacher.atspace.tv/query_activity.php";
             JsonRequest<JSONObject> jrq;
             jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             rq.add(jrq);
@@ -129,14 +129,14 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
 
     @Override
     public void onResponse(JSONObject response) {
-        JSONArray jsonArray = response.optJSONArray("actividades");
+        JSONArray jsonArray = response.optJSONArray("activities");
         JSONObject jsonObject= null;
         Activities actividad;
+        elements = new ArrayList<>();
         if(jsonArray!=null){
             try {
-                elements = new ArrayList<>();
-                actividad = new Activities();
                 for (int i = 0; i < jsonArray.length(); i++) {
+                    actividad = new Activities();
                     jsonObject = jsonArray.getJSONObject(i);
                     actividad.setIdActivity(jsonObject.optString("idActivity"));
                     actividad.setIdCourse(jsonObject.optString("idCourse"));
@@ -146,22 +146,21 @@ public class Activities_Consulta implements Response.Listener<JSONObject>, Respo
                     actividad.setCourseName(jsonObject.optString("courseName"));
                     elements.add(actividad);
                 }
-                if (insertActivityResultListener != null ) {
-                    insertActivityResultListener.onInsertActivitySucces(elements);
-                }
-                if(deletetActivityResultListener!=null){
-                    deletetActivityResultListener.onDeleteActivitySucces(elements);
 
-                }
-                if(queryActivityResultListener!=null){
-                    queryActivityResultListener.onQueryActivitySucces(elements);
-                }
 
             } catch (JSONException e){
                 throw new RuntimeException(e);
             }
+            if (insertActivityResultListener != null ) {
+                insertActivityResultListener.onInsertActivitySucces(elements);
+            }
+            if(deletetActivityResultListener!=null){
+                deletetActivityResultListener.onDeleteActivitySucces(elements);
+
+            }
+            if(queryActivityResultListener!=null){
+                queryActivityResultListener.onQueryActivitySucces(elements);
+            }
         }
-
-
     }
 }

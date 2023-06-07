@@ -26,7 +26,7 @@ public class Home extends AppCompatActivity{
         Bundle extras = getIntent().getExtras();
         String idUser = extras.getString("idUser");
         //instanciamos fragmentos
-        first_fragment primer_frag = new first_fragment(getApplicationContext(),idUser);
+        first_fragment primer_frag = new first_fragment(this,idUser);
         second_fragment segundo_frag = new second_fragment(getApplicationContext());
         third_fragment tercer_frag = new third_fragment();
         //Se asigna el fragmento que se iniciara al crearse la actividad

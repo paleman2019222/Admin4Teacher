@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
 
         recyclerView = root.findViewById(R.id.layout_actividades);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(contexto,LinearLayoutManager.VERTICAL,false));
         FloatingActionButton bttn_add_activity = (FloatingActionButton)root.findViewById(R.id.idFabAgregar_Actividad);
         bttn_add_activity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,12 +140,13 @@ public class second_fragment extends Fragment implements Activities_Consulta.Ins
 
     @Override
     public void onQueryActivitySucces(List<Activities> list) {
+        Log.i("elementos",list.toString());
         Adapter.setItems(list);
         recyclerView.setAdapter(Adapter);
     }
 
     @Override
     public void onQueryActivityError(String errorMenssage) {
-        Toast.makeText(getContext(),errorMenssage,Toast.LENGTH_SHORT).show();
+        Toast.makeText(contexto,errorMenssage,Toast.LENGTH_SHORT).show();
     }
 }
